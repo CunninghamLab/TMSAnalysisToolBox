@@ -13,7 +13,7 @@ To get started:
 2) Click 'Download Zip' (9.6 MB)
 3) Extract the downloaded zip file anywhere on your computer (16 MB)
 4) Open matlab and navigate to the extracted folder
-5) Add TMSAnalsysisToolBox folder and subfolders to your path (This can be achieved by Right Clicking on the Main File System in matlab and Selecting 'Add to Path --> Selected Folders and Subfolders" in the drop down
+5) Add TMSAnalsysisToolBox folder and subfolders to your path (This can be achieved by Right Clicking on the Main File System in matlab and Selecting 'Add to Path --> Selected Folders and Subfolders' in the drop down
 6) In the matlab command line type: TMSAnalysisToolBoxV1 
 7) Press Enter
 
