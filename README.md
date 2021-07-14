@@ -3,7 +3,7 @@ Transcranial Magnetic Stimulation (TMS) Analysis Toolbox: A user friendly open s
 
 TMS Analysis ToolBox is user friendly toolbox that can perform basic and advanced analysis of common transcranial magnetic stimulation based outcomes (MEP Latency/Amplitudes, Silent Periods, Recruitment Curve (Sigmoidal Fitting and AUC). TMSLab is currently in beta version. If you are interested in using the toolbox, please contact us. 
 
-Compatible files: LabChart, BrainVision, Signal (more to be included)
+Compatible files: LabChart, BrainVision, Acknowledge, Signal and Spike (more to be included)
 
 Requirements: MATLAB 2020a or later, MATLAB Statistics and Machine Learning Toolbox, Signal Processing Toolbox, Mapping Toolbox
 
