@@ -16,3 +16,6 @@ To get started:
 5) Add TMSAnalsysisToolBox folder and subfolders to your path
 6) In the matlab command line type: TMSAnalysisToolBoxV1 
 7) Press Enter
+
+
+![image](https://user-images.githubusercontent.com/53790023/125673566-10082301-5e4d-4177-8437-4a208d988a63.png)
