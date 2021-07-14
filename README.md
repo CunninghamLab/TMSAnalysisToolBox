@@ -1,7 +1,7 @@
 # TMS Analysis ToolBox
 Transcranial Magnetic Stimulation (TMS) Analysis Toolbox: A user friendly open source Matlab GUI for basic and advanced analysis of TMS related outcomes
 
-TMS Analysis ToolBox is user friendly toolbox that can perform basic and advanced analysis of common transcranial magnetic stimulation based outcomes (MEP Latency/Amplitudes, Silent Periods, Paired-Pulse, Recruitment Curve (Sigmoidal Fitting and AUC)). Further, the toolBox allows for easy organization of data, retrieval of results, and data visualizations (waveform and group level). 
+TMS Analysis ToolBox is user friendly toolbox that can perform basic and advanced analysis of common transcranial magnetic stimulation based outcomes (MEP Latency/Amplitudes, Silent Periods, Paired-Pulse, Recruitment Curve (Sigmoidal Fitting and AUC)). Further, the toolBox allows for easy organization of data, retrieval of results, and data visualization (waveform and group level). 
 
 **Compatible file imports: LabChart (.mat), BrainVision (.eeg/.vhdr/.vmrk), Aqcknowledge (.mat), Signal (.cfs or .mat) and Spike (.smr/.smrx) (more to be included)**
 
