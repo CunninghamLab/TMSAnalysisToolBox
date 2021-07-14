@@ -22,6 +22,6 @@ To get started:
 
 ![image](https://user-images.githubusercontent.com/53790023/125673566-10082301-5e4d-4177-8437-4a208d988a63.png)
 
+**Basic Work Flow**
 
-
-![image](https://user-images.githubusercontent.com/53790023/125680667-f2822b5c-1d72-44d9-8f23-c3cb5ad9cd99.png)
+![image](https://user-images.githubusercontent.com/53790023/125680867-1f7f0db3-01b8-4f62-ac6b-cf4b821ec827.png)
