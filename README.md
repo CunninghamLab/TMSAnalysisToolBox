@@ -10,12 +10,14 @@ Requirements: MATLAB 2020a or later, MATLAB Statistics and Machine Learning Tool
 To get started:
 
 1) Click the Greeen 'Code' button at the top of the screen
-2) Click 'Download Zip'
+2) Click 'Download Zip' (9.8 mb)
 3) Extract the downloaded zip file anywhere on your computer
 4) Open matlab and navigate to the extracted folder
 5) Add TMSAnalsysisToolBox folder and subfolders to your path
 6) In the matlab command line type: TMSAnalysisToolBoxV1 
 7) Press Enter
+
+*More Instructions Forthcoming*
 
 
 ![image](https://user-images.githubusercontent.com/53790023/125673566-10082301-5e4d-4177-8437-4a208d988a63.png)
