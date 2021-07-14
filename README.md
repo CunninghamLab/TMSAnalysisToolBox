@@ -19,9 +19,10 @@ To get started:
 
 **More Instructions Forthcoming**
 
+# GUI at StartUp
 
 ![image](https://user-images.githubusercontent.com/53790023/125673566-10082301-5e4d-4177-8437-4a208d988a63.png)
 
-**Basic Work Flow**
+# Basic Work Flow
 
 ![image](https://user-images.githubusercontent.com/53790023/125680867-1f7f0db3-01b8-4f62-ac6b-cf4b821ec827.png)
