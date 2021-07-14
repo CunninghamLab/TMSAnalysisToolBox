@@ -10,7 +10,7 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 To get started:
 
 1) Click the Greeen 'Code' button at the top of the screen
-2) Click 'Download Zip' (9.8 mb)
+2) Click 'Download Zip' (9.6 mb)
 3) Extract the downloaded zip file anywhere on your computer
 4) Open matlab and navigate to the extracted folder
 5) Add TMSAnalsysisToolBox folder and subfolders to your path
