@@ -40,6 +40,7 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 
 # Example Data Import and Analysis View: Ipsilateral Silent Period
 
-![TMSToolBox](https://user-images.githubusercontent.com/53790023/125692237-85dcc87e-7eeb-490f-9f6d-ca87a450f530.jpg)
+![ToolBox](https://user-images.githubusercontent.com/53790023/125721559-1bccf77d-3d6d-485a-8712-ccfb2b7915bc.jpg)
+
 
 
