@@ -7,7 +7,7 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 
 **Detailed Manual Forthcoming**
 
-# Matlab Independent Software (Windows Compatible Only/ Mac compatible version located in for_redistributiion.zip)
+# Matlab Independent Software (Windows Compatible Only/ Mac compatible version located in for_redistribution.zip)
 1) Click the Greeen 'Code' button at the top of the screen
 2) Click 'Download Zip'
 3) Extract the downloaded zip file anywhere on your computer
