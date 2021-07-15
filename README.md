@@ -5,7 +5,7 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 
 **Compatible file imports: LabChart (.mat), BrainVision (.eeg/.vhdr/.vmrk), Aqcknowledge (.mat), Signal (.cfs or .mat) and Spike (.smr/.smrx) (more to be included)**
 
-# Don't have Matlab? BETA Version
+# Don't have Matlab?
 1) Click the Greeen 'Code' button at the top of the screen
 2) Click 'Download Zip'
 3) Extract the downloaded zip file anywhere on your computer
