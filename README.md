@@ -51,10 +51,6 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 
 # Example Data Export to .csv: MEP
 
-![Example Export](https://user-images.githubusercontent.com/53790023/125827647-43325cf4-7bb6-42c5-9223-273f831a17f7.png)
-
-
-
-
+![Example Export](https://user-images.githubusercontent.com/53790023/125827777-0f838ac4-c3c1-4abb-8950-6e3d3a4c7602.png)
 
 
