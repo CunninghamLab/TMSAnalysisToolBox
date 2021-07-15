@@ -8,8 +8,8 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 # Don't have Matlab? BETA Version
 
 1) Go to the extracted folder location in windows
-2) Double-Click MyAppInstaller_Web - you will be prompted to download MATLAB Runtime installer via the web
-3) Save a shortcut to your desktop - necessary as all saved files will be saved in a folder called 'TMSANalysisToolBox' on created on your desktop
+2) Double-Click 'MyAppInstaller_Web' --> you will be prompted to download MATLAB Runtime installer via the web
+3) Save a shortcut to your desktop --> necessary as all saved files will be saved in a folder called 'TMSANalysisToolBox' on created on your desktop
 4) Double-Click on icon Created on Desktop
 
 # Have Matlab?
