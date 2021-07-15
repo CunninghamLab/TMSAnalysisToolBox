@@ -5,6 +5,15 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 
 **Compatible file imports: LabChart (.mat), BrainVision (.eeg/.vhdr/.vmrk), Aqcknowledge (.mat), Signal (.cfs or .mat) and Spike (.smr/.smrx) (more to be included)**
 
+# Don't have Matlab? BETA Version
+
+1) Go to the extracted folder location in windows
+2) Double-Click MyAppInstaller_Web - you will be prompted to download MATLAB Runtime installer via the web
+3) Save a shortcut to your desktop - necessary as all saved files will be saved in a folder called 'TMSANalysisToolBox' on created on your desktop
+4) Double-Click on icon Created on Desktop
+
+# Have Matlab?
+
 **Requirements: MATLAB 2020a or later, MATLAB Statistics and Machine Learning Toolbox, Signal Processing Toolbox, Mapping Toolbox**
 
 To get started:
@@ -31,10 +40,4 @@ To get started:
 
 ![TMSToolBox](https://user-images.githubusercontent.com/53790023/125692237-85dcc87e-7eeb-490f-9f6d-ca87a450f530.jpg)
 
-# Don't have Matlab? Beta
-
-1) Go to the extracted folder location in windows
-2) Go into /Matlab Free Version/TMSdemo/for_redistribution
-3) Download: MyAppInstaller_Web
-4) Create TMSDemo ShortCut to desktop 
 
