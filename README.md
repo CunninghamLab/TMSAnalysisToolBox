@@ -36,7 +36,8 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 
 # Basic Work Flow
 
-![image](https://user-images.githubusercontent.com/53790023/125680867-1f7f0db3-01b8-4f62-ac6b-cf4b821ec827.png)
+![WorkFlow](https://user-images.githubusercontent.com/53790023/125802896-ac3be643-c228-44e4-a7ef-5ba87e2324a4.png)
+
 
 # Example Data Import and Analysis View: Ipsilateral Silent Period
 
