@@ -7,7 +7,7 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 
 **Detailed Manual Forthcoming**
 
-# Don't have Matlab?
+# Matlab Independent Software (Windows Compatible Only)
 1) Click the Greeen 'Code' button at the top of the screen
 2) Click 'Download Zip'
 3) Extract the downloaded zip file anywhere on your computer
@@ -17,7 +17,7 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 7) Move 'TMSToolBox_Generated_Files' folder to your desktop (located in the extracted folder --> all data will be saved here)
 8) Double-Click on icon created on Desktop
 
-# Have Matlab?
+# Matlab Dependent (Windows and Mac Compatible)
 
 **Requirements: MATLAB 2020a or later, MATLAB Statistics and Machine Learning Toolbox, Signal Processing Toolbox, Mapping Toolbox**
 
