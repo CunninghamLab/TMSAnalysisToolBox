@@ -36,6 +36,5 @@ To get started:
 1) Go to the extracted folder location in windows
 2) Go into /Matlab Free Version/TMSdemo/for_redistribution
 3) Download: MyAppInstaller_Web
-4) Create TMSDemo ShortCut to desktop
-5) 
+4) Create TMSDemo ShortCut to desktop 
 
