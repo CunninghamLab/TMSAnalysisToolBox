@@ -28,7 +28,7 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 6) In the matlab command line type: TMSAnalysisToolBoxV1 
 7) Press Enter
 
-**More Instructions Forthcoming**
+**Detailed Manual Forthcoming**
 
 # GUI at StartUp
 
@@ -36,8 +36,7 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 
 # Basic Work Flow
 
-![WorkFlow](https://user-images.githubusercontent.com/53790023/125809240-6a164a52-1f6d-4f32-8a38-e2d5848f91f6.png)
-
+![WorkFlow](https://user-images.githubusercontent.com/53790023/125820521-154624ea-287e-4c1a-a84d-51893824eaf8.png)
 
 # Example Data Import and Analysis View: Ipsilateral Silent Period
 
