@@ -45,11 +45,11 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 
 ![RC Example](https://user-images.githubusercontent.com/53790023/125826388-931c061b-2d42-4593-a869-776559a562e5.png)
 
-# Example Data Import and Analysis View: Visualize Multiple Condition File Results
+# Example Data Import and Analysis View: Visualize Multiple Condition Results
 
 ![Visualize](https://user-images.githubusercontent.com/53790023/125826359-3c851098-261f-41c4-bbad-8e208202c47e.png)
 
-# Example Data Export to .csv: MEP
+# Example Data Export to .csv: Export Multiple Condition Results
 
 ![Example Export](https://user-images.githubusercontent.com/53790023/125828261-eb887497-3b90-4ea2-a064-da7409f537a2.png)
 
