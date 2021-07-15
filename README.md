@@ -10,8 +10,8 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 To get started:
 
 1) Click the Greeen 'Code' button at the top of the screen
-2) Click 'Download Zip' (9.6 MB)
-3) Extract the downloaded zip file anywhere on your computer (16 MB)
+2) Click 'Download Zip'
+3) Extract the downloaded zip file anywhere on your computer
 4) Open matlab and navigate to the extracted folder
 5) Add TMSAnalsysisToolBox folder and subfolders to your path (This can be achieved by Right Clicking on the Main File System in matlab and Selecting 'Add to Path --> Selected Folders and Subfolders' in the drop down
 6) In the matlab command line type: TMSAnalysisToolBoxV1 
@@ -30,4 +30,12 @@ To get started:
 # Example Data Import and Analysis View: Ipsilateral Silent Period
 
 ![TMSToolBox](https://user-images.githubusercontent.com/53790023/125692237-85dcc87e-7eeb-490f-9f6d-ca87a450f530.jpg)
+
+# Don't have Matlab? Beta
+
+1) Go to the extracted folder location in windows
+2) Go into /Matlab Free Version/TMSdemo/for_redistribution
+3) Download: MyAppInstaller_Web
+4) Create TMSDemo ShortCut to desktop
+5) 
 
