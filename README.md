@@ -15,8 +15,7 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 4) Go to the extracted folder location
 5) Double-Click 'Windows_Compatible.exe' --> you will be prompted to download MATLAB Runtime installer via the web
 6) Save a shortcut to your desktop
-7) Move 'TMSToolBox_Generated_Files' folder to your desktop (located in the extracted folder --> all data will be saved here)
-8) Double-Click on icon created on Desktop
+7) Double-Click on icon created on Desktop
 
 # Matlab Dependent (Windows and Mac Compatible)
 
