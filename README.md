@@ -8,12 +8,12 @@ TMS Analysis ToolBox is user friendly toolbox that can perform basic and advance
 **Detailed Manual Forthcoming**
 
 # Matlab Independent Software 
-# (Windows 10 ompatible/ Mac Mojave compatible version located in for_redistribution.zip)
+# (Windows 10 ompatible/ Mac Mojave compatible version located in Mac_Compatible.zip)
 1) Click the Greeen 'Code' button at the top of the screen
 2) Click 'Download Zip'
 3) Extract the downloaded zip file anywhere on your computer
 4) Go to the extracted folder location
-5) Double-Click 'MyAppInstaller_Web.exe' --> you will be prompted to download MATLAB Runtime installer via the web
+5) Double-Click 'Windows_Compatible.exe' --> you will be prompted to download MATLAB Runtime installer via the web
 6) Save a shortcut to your desktop
 7) Move 'TMSToolBox_Generated_Files' folder to your desktop (located in the extracted folder --> all data will be saved here)
 8) Double-Click on icon created on Desktop
