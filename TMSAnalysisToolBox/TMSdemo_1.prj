@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration file="C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1.prj" location="C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox" name="TMSdemo_1" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration file="C:\Users\dxc53\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1.prj" location="C:\Users\dxc53\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox" name="TMSdemo_1" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>TMSAnalysisToolBox</param.appname>
     <param.icon />
     <param.icons />
@@ -774,21 +774,14 @@
       <file>${PROJECT_ROOT}\Support ToolBox\fieldtrip-20191127\preproc\private\windows.m</file>
     </fileset.depfun>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="readme.txt" optional="true">C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\readme.txt</file>
-      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="TMSAnalysisToolBox.exe" optional="false">C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\TMSAnalysisToolBox.exe</file>
-      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="splash.png" optional="false">C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="TMSAnalysisToolBox.exe" optional="false">C:\Users\dxc53\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\TMSAnalysisToolBox.exe</file>
+      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="readme.txt" optional="true">C:\Users\dxc53\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="splash.png" optional="false">C:\Users\dxc53\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\splash.png</file>
     </build-deliverables>
     <workflow />
     <matlab>
       <root>C:\Program Files\MATLAB\R2021a</root>
-      <toolboxes>
-        <toolbox name="matlabcoder" />
-      </toolboxes>
-      <toolbox>
-        <matlabcoder>
-          <enabled>true</enabled>
-        </matlabcoder>
-      </toolbox>
+      <toolboxes />
     </matlab>
     <platform>
       <unix>false</unix>
