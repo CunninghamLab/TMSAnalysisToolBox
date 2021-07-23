@@ -466,7 +466,6 @@
     <fileset.depfun>
       <file>${MATLAB_ROOT}\toolbox\local\restoredefaultpath.m</file>
       <file>${MATLAB_ROOT}\toolbox\local\userpath.m</file>
-      <file>${PROJECT_ROOT}\SavedSettings.mat</file>
       <file>${PROJECT_ROOT}\Support ToolBox\CEDMATLAB\CEDS64ML\x86\ceds32Prot.m</file>
       <file>${PROJECT_ROOT}\Support ToolBox\fieldtrip-20191127\fileio\private\ama2headmodel.m</file>
       <file>${PROJECT_ROOT}\Support ToolBox\fieldtrip-20191127\fileio\private\appendstruct.m</file>
@@ -879,14 +878,7 @@
     <workflow />
     <matlab>
       <root>C:\Program Files\MATLAB\R2021a</root>
-      <toolboxes>
-        <toolbox name="matlabcoder" />
-      </toolboxes>
-      <toolbox>
-        <matlabcoder>
-          <enabled>true</enabled>
-        </matlabcoder>
-      </toolbox>
+      <toolboxes />
     </matlab>
     <platform>
       <unix>false</unix>
