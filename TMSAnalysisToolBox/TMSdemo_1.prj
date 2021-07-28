@@ -1,6 +1,6 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
   <configuration build-checksum="2146259500" file="C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1.prj" location="C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox" name="TMSdemo_1" preferred-package-location="C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
-    <param.appname>TMSdemo</param.appname>
+    <param.appname>TMSAnalysisToolBox</param.appname>
     <param.icon>${PROJECT_ROOT}\TMSdemo_1_resources\icon.ico</param.icon>
     <param.icons>
       <file>${PROJECT_ROOT}\TMSdemo_1_resources\icon_48.png</file>
@@ -16,7 +16,7 @@
     <param.description />
     <param.screenshot>C:\Users\cunni\Downloads\test1.png</param.screenshot>
     <param.guid />
-    <param.installpath.string>\TMSdemo\</param.installpath.string>
+    <param.installpath.string>\TMSAnalysisToolBox\</param.installpath.string>
     <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
     <param.logo>C:\Users\cunni\Downloads\test1.png</param.logo>
     <param.install.notes />
@@ -872,8 +872,8 @@
     </fileset.depfun>
     <build-deliverables>
       <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="readme.txt" optional="true">C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="TMSAnalysisToolBox.exe" optional="false">C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\TMSAnalysisToolBox.exe</file>
       <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="splash.png" optional="false">C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\splash.png</file>
-      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="TMSdemo.exe" optional="false">C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\TMSdemo.exe</file>
     </build-deliverables>
     <workflow />
     <matlab>
