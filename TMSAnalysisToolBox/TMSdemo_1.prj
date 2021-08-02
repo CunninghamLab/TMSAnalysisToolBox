@@ -1,6 +1,6 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="2146259500" file="C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1.prj" location="C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox" name="TMSdemo_1" preferred-package-location="C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
-    <param.appname>TMSAnalysisToolBox</param.appname>
+  <configuration build-checksum="2146259500" file="C:\Users\dxc53\Documents\GitHub\TMSAnalysisToolBox\TMSdemo_1.prj" location="C:\Users\dxc53\Documents\GitHub\TMSAnalysisToolBox" name="TMSdemo_1" preferred-package-location="C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+    <param.appname>TMSToolKit</param.appname>
     <param.icon>${PROJECT_ROOT}\TMSdemo_1_resources\icon.ico</param.icon>
     <param.icons>
       <file>${PROJECT_ROOT}\TMSdemo_1_resources\icon_48.png</file>
@@ -14,11 +14,11 @@
     <param.company />
     <param.summary />
     <param.description />
-    <param.screenshot>C:\Users\cunni\Downloads\test1.png</param.screenshot>
+    <param.screenshot>C:\Users\dxc53\Desktop\TMSToolKit.png</param.screenshot>
     <param.guid />
-    <param.installpath.string>\TMSAnalysisToolBox\</param.installpath.string>
+    <param.installpath.string>\TMSToolKit\</param.installpath.string>
     <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
-    <param.logo>C:\Users\cunni\Downloads\test1.png</param.logo>
+    <param.logo>C:\Users\dxc53\Desktop\TMSToolKit.png</param.logo>
     <param.install.notes />
     <param.target.install.notes />
     <param.intermediate>${PROJECT_ROOT}\TMSdemo_1\for_testing</param.intermediate>
@@ -467,6 +467,7 @@
     <fileset.depfun>
       <file>${MATLAB_ROOT}\toolbox\local\restoredefaultpath.m</file>
       <file>${MATLAB_ROOT}\toolbox\local\userpath.m</file>
+      <file>${PROJECT_ROOT}\Support ToolBox\CEDMATLAB\CEDS64ML\x86\ceds32Prot.m</file>
       <file>${PROJECT_ROOT}\Support ToolBox\fieldtrip-20191127\fileio\private\ama2headmodel.m</file>
       <file>${PROJECT_ROOT}\Support ToolBox\fieldtrip-20191127\fileio\private\appendstruct.m</file>
       <file>${PROJECT_ROOT}\Support ToolBox\fieldtrip-20191127\fileio\private\avw_hdr_read.m</file>
@@ -871,9 +872,9 @@
       <file>${PROJECT_ROOT}\Support ToolBox\fieldtrip-20191127\utilities\private\volumethreshold.m</file>
     </fileset.depfun>
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="readme.txt" optional="true">C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\readme.txt</file>
-      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="TMSAnalysisToolBox.exe" optional="false">C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\TMSAnalysisToolBox.exe</file>
-      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="splash.png" optional="false">C:\Users\cunni\Documents\GitHub\TMSAnalysisToolBox\TMSAnalysisToolBox\TMSdemo_1\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="splash.png" optional="false">C:\Users\dxc53\Documents\GitHub\TMSAnalysisToolBox\TMSdemo_1\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="TMSToolKit.exe" optional="false">C:\Users\dxc53\Documents\GitHub\TMSAnalysisToolBox\TMSdemo_1\for_testing\TMSToolKit.exe</file>
+      <file location="${PROJECT_ROOT}\TMSdemo_1\for_testing" name="readme.txt" optional="true">C:\Users\dxc53\Documents\GitHub\TMSAnalysisToolBox\TMSdemo_1\for_testing\readme.txt</file>
     </build-deliverables>
     <workflow />
     <matlab>
