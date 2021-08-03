@@ -14,11 +14,11 @@
     <param.company />
     <param.summary />
     <param.description />
-    <param.screenshot>C:\Users\dxc53\Desktop\TMSToolKit.png</param.screenshot>
+    <param.screenshot />
     <param.guid />
     <param.installpath.string>\TMSToolKit\</param.installpath.string>
     <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
-    <param.logo>C:\Users\dxc53\Desktop\TMSToolKit.png</param.logo>
+    <param.logo />
     <param.install.notes />
     <param.target.install.notes />
     <param.intermediate>${PROJECT_ROOT}\TMSdemo_1\for_testing</param.intermediate>
@@ -52,9 +52,11 @@
       <param.company />
       <param.summary />
       <param.description />
+      <param.screenshot />
       <param.guid />
       <param.installpath.string />
       <param.installpath.combo />
+      <param.logo />
       <param.install.notes />
       <param.target.install.notes />
       <param.intermediate />
@@ -467,7 +469,6 @@
     <fileset.depfun>
       <file>${MATLAB_ROOT}\toolbox\local\restoredefaultpath.m</file>
       <file>${MATLAB_ROOT}\toolbox\local\userpath.m</file>
-      <file>${PROJECT_ROOT}\Support ToolBox\CEDMATLAB\CEDS64ML\x86\ceds32Prot.m</file>
       <file>${PROJECT_ROOT}\Support ToolBox\fieldtrip-20191127\fileio\private\ama2headmodel.m</file>
       <file>${PROJECT_ROOT}\Support ToolBox\fieldtrip-20191127\fileio\private\appendstruct.m</file>
       <file>${PROJECT_ROOT}\Support ToolBox\fieldtrip-20191127\fileio\private\avw_hdr_read.m</file>
