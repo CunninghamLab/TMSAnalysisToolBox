@@ -1,29 +1,25 @@
 # TMS Analysis ToolBox
 
-**Detailed Manual Forthcoming**
+The Toolbox allows for whole multi-channel files from various data acquisition systems that are most frequently used for TMS. This capability ensures that the entire data file is reformatted to a standardized structure, enabling users to import and analyze data from recent experiments as well as retrospective datasets collected using different acquisition systems. As a result, the toolbox can aggregate multiple datasets from diverse research sites which has broad implications for disseminating data.
+
+# Version 2.0
 
 # Matlab Independent Software 
 
 # Matlab Dependent (Windows and Mac Compatible)
 
-**Requirements: MATLAB 2020a or later, MATLAB Statistics and Machine Learning Toolbox, Signal Processing Toolbox, Mapping Toolbox**
+**Requirements: MATLAB 2023a, MATLAB Statistics and Machine Learning Toolbox, Signal Processing Toolbox, Mapping Toolbox**
 
-# GUI at StartUp
+# Tutorial
 
+https://cunninghamlab.framer.website/tools
 
-
-# Basic Work Flow
-
-
-# Example Data Import and Analysis View: Ipsilateral Silent Period
+# Example Data Organization
 
 
-# Example Data Import and Analysis View: Recruitment Curve
+# Example Data Processing View
 
 
-# Example Data Import and Analysis View: Visualize Multiple Condition Results
-
-
-# Example Data Export to .csv: Export Multiple Condition Results
+# Example Data Analysis View
 
 
