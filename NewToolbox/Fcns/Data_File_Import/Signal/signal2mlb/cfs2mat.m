@@ -245,6 +245,8 @@ classdef cfs2mat
                         % opposed to matrix data, which in Signal usually designates
                         % markers, or subsidiary data
                         if (dataKind == 0)
+                            %
+                             %Original code
                             % read actual data
                             D.data(:,dsCount,chCount) = ...
                                 matcfs64c('cfsGetChanData',fileHandle, ...
@@ -252,6 +254,17 @@ classdef cfs2mat
                             D.data(:,dsCount,chCount) = ...
                                 (D.data(:,dsCount,chCount) * D.param.yScale(chCount)) + ...
                                 D.param.yOffset(chCount);
+                            %}
+                            %{
+                             %Troubleshooting
+                            % read actual data
+                            D.data{dsCount,chCount} = ...
+                                matcfs64c('cfsGetChanData',fileHandle, ...
+                                chCount-1,dsCount,0,points,dataType);
+                            D.data{dsCount,chCount} = ...
+                                (D.data{dsCount,chCount} * D.param.yScale(chCount)) + ...
+                                D.param.yOffset(chCount);
+                            %}
                         end
                     end % for chCount
                 end  % for dsCount

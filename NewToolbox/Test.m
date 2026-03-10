@@ -92,7 +92,7 @@ DataUnits=DataUnits1(IsWave);
 
 app.numBlocks=size(app.Signal_Data.values,3);
 StateInfoLoc=find(string({app.Signal_Data.DSVars.Desc})=="State"); %change this to take whatever is in the Desc %!!!
-StateA=app.Signal_Data.DSVars(StateInfoLoc).Values;
+StateA=app.Signal_Data.DSVars(StateInfoLoc).Values';
 if StateA{1} == 0 %zero index
     app.numStates=StateA{end}+1;                                   %assumes largest state value to be at the end
 elseif StateA{1} == 1 %one index
@@ -103,7 +103,7 @@ labelsAll=app.Signal_Data.DSVars(LabelsLoc).Values;
 
 
 
-Block1=cell(app.numBlocks,1); StateB=cell(app.numStates,1); e=1;
+Block1=cell(app.numChannels,1); StateB=cell(app.numStates,1); e=1;
 for i=1:app.numBlocks
     %Block1{i,1}=app.Signal_Data.values(:,:,i); %!!!!!! 
     DataValues=app.Signal_Data.values(:,:,i); %numPointsxnumChannels
@@ -125,7 +125,7 @@ for i=1:app.numBlocks
         end
     end
 
-    StateB{State,1}{e,1}=Block1; %organize by state, StateB contains cells with block data for each state, convert to volts
+    StateB{State,1}=Block1; %organize by state, StateB contains cells with block data for each state, convert to volts
     StateB{State,2}=label;
     e=e+1;
 end
