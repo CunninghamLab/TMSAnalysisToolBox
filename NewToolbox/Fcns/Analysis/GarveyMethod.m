@@ -110,6 +110,13 @@ for i=1:length(SelectedTrialsData(:,1)) %for each trial
             end
 
         elseif AnalyzeMethod == "SP" && DataPt < OnsetLimit(i) && DataPt_Prev > OnsetLimit(i)
+            DurationEnd=i2+MinSamplesDur-1;
+            if DurationEnd > length(TrialDataO) %Onset was found too close to the end of the trial data
+                OnsetTime=nan;
+                OffsetTime=nan;
+                NoOnset=1;
+                break;
+            end
             DurationData=TrialDataO(i2:i2+MinSamplesDur-1);
             %If min duration is met
             %No 50% rule-100% of the duration data must be above the limit, 50% rule-at least 50% of the duration data needs to be above the limit
