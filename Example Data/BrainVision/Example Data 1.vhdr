@@ -1,0 +1,56 @@
+BrainVision Data Exchange Header File Version 1.0
+; Data created by the BrainVision Recorder
+
+[Common Infos]
+Codepage=UTF-8
+DataFile=Example Data 1.eeg
+MarkerFile=Example Data 1.vmrk
+DataFormat=BINARY
+; Data orientation: MULTIPLEXED=ch1,pt1, ch2,pt1 ...
+DataOrientation=MULTIPLEXED
+NumberOfChannels=4
+; Sampling interval in microseconds
+SamplingInterval=200
+
+[Binary Infos]
+BinaryFormat=INT_16
+
+[Channel Infos]
+; Each entry: Ch<Channel number>=<Name>,<Reference channel name>,
+; <Resolution in "Unit">,<Unit>, Future extensions..
+; Fields are delimited by commas, some fields might be omitted (empty).
+; Commas in channel names are coded as "\1".
+Ch1=LECR,,0.5,µV
+Ch2=LFDI,,0.5,µV
+Ch3=RECR,,0.1,µV
+Ch4=RFDI,,0.1,µV
+
+[Comment]
+
+BrainVision Recorder Professional   -   V. 1.21.0402
+
+
+A m p l i f i e r  S e t u p
+============================
+Number of channels: 4
+Sampling Rate [Hz]: 5000
+Sampling Interval [µS]: 200
+
+Channels
+--------
+#     Name      Phys. Chn.    Resolution / Unit   Low Cutoff [s]   High Cutoff [Hz]   Notch [Hz]    Series Res. [kOhm] Gradient         Offset
+1     LECR        1                0.5 µV             10             1000              Off                0                 
+2     LFDI        2                0.5 µV             10             1000              Off                0                 
+3     RECR        3                0.1 µV             10             1000              Off                0                 
+4     RFDI        4                0.1 µV             10             1000              Off                0                 
+
+S o f t w a r e  F i l t e r s
+==============================
+#     Low Cutoff [s]   High Cutoff [Hz]   Notch [Hz]
+1      0.3              499                Off
+2      0.3              499                Off
+3      0.3              499                Off
+4      0.3              499                Off
+
+
+No impedance values available at 16:41:01!
