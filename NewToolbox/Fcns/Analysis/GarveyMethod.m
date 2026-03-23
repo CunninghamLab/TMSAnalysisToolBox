@@ -61,18 +61,15 @@ for i=1:length(SelectedTrialsData(:,1)) %for each trial
     %TrialTime=SelectedTrialsData{i,2};
     TrialData=abs(TrialDataNR); %rectify
 
-    %find onset time
+    %Determine Start time, round to nearest time value
     Tol=eps("double");
-    %Start=find(abs(appTime - OnsetTime) < Tol);
-    Start=app.StartTimemsEditField.Value*0.001;
-    StartSamples=Start*AnalyzeSampleRate;
-    StartSamples=round(StartSamples);           %round if start time isn't within the sample rate
-    if StartSamples ~= Start*AnalyzeSampleRate  %if start time was changed update edit field
-        app.StartTimemsEditField.Value=StartSamples*(1/AnalyzeSampleRate)*1000; %update start time to new value in milliseconds
-    end
+    DiffTimeStart=abs(app.Time-(app.StartTimemsEditField.Value*0.001));
+    minDiffTimeStart=find(DiffTimeStart == min(DiffTimeStart));
+    StartTime=app.Time(minDiffTimeStart); %seconds
+    app.StartTimemsEditField.Value=StartTime*1000; %display new start time
 
-
-    StartIndx=find(abs(TrialTime-app.StartTimemsEditField.Value*0.001) < Tol);
+    %find onset time
+    StartIndx=find(abs(app.Time - StartTime) < Tol);
     TrialTimeO=TrialTime(StartIndx:end);
     TrialDataO=TrialData(StartIndx:end);
     MinDur=app.OnsetMinDurmsEditField.Value*0.001; %convert ms to seconds

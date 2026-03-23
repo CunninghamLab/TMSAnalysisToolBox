@@ -5,9 +5,6 @@
 
 function [DataTime,Data]=ProcessingData(app,Data,DataTime)
 
-%%
-%app.ProcessOrderListBox.ItemsData=[1 2 5 8 7 ]; %DS,Delay,rect,lowpass
-
 Order=app.ProcessOrderListBox.ItemsData;
 %ItemData 8 == Rectify
 RectifyPres= Order == 8;
@@ -49,13 +46,6 @@ for i=app.ProcessOrderListBox.ItemsData
 
     switch i
 
-        case 7 %Delay
-            DataTime=ProcessDelay(DataTime,app.DelayEditField.Value);
-            app.ProcessOrder{x,2}=app.DelayEditField.Value;
-
-        case 8 %Rectify
-            Data=ProcessRectify(app, Data);
-
         case 1 %Down sample
             [DataTime,Data,newSampleRate]=ProcessDownSample(DataTime,Data,app.FactorEditField.Value,app.AllSampleRate(1));
             app.SampleRateLabel.Text=['Sample Rate: ' num2str(newSampleRate) 'Hz'];
@@ -71,17 +61,10 @@ for i=app.ProcessOrderListBox.ItemsData
             end
         
             if app.NotchUSButton.Value
-                % app.NotchEuropeanButton.Value = 0;
-                % app.OtherNotchButton.Value = 0;
                 Freqz = 60;
             elseif app.NotchEuropeanButton.Value
-                % app.NotchUSButton.Value = 0;
-                % app.OtherNotchButton.Value = 0;
                 Freqz = 50;
             elseif app.OtherNotchButton.Value 
-                % app.NotchUSButton.Value = 0;
-                % app.NotchEuropeanButton.Value = 0;
-                % app.OtherNotchEditField.Visible = 1;
                 Freqz = app.OtherNotchEditField.Value;
             end
 
@@ -96,7 +79,20 @@ for i=app.ProcessOrderListBox.ItemsData
             end
 
             Data=ProcessBandPass(app,Data, SampleRate,app.BandPassStartEditField.Value,app.BandPassEndEditField.Value);
-            app.ProcessOrder{x,2}=[app.BandPassStartEditField.Value app.BandPassEndEditField.Value];
+
+            app.ProcessOrder{x,2}=app.BandPassFilterType.Value;
+            app.ProcessOrder{x,3}=[app.BandPassStartEditField.Value app.BandPassEndEditField.Value];
+            switch app.BandPassFilterType.Value
+                case "Butterworth"
+                    app.ProcessOrder{x,4}=app.BandPassFilterOrder.Value;
+                case "Chebyshev I"
+                    app.ProcessOrder{x,4}=[app.BandPassFilterOrder.Value app.BandPassFilterRp.Value];
+                case "Chebyshev II"
+                    app.ProcessOrder{x,4}=[app.BandPassFilterOrder.Value app.BandPassFilterRs.Value];
+                case "Elliptic"
+                    app.ProcessOrder{x,4}=[app.BandPassFilterOrder.Value app.BandPassFilterRp.Value app.BandPassFilterRs.Value];
+            end
+           
 
         case 4 %Low pass
             if D==1
@@ -106,7 +102,18 @@ for i=app.ProcessOrderListBox.ItemsData
             end
 
             Data=ProcessLowPass(app,Data, SampleRate,app.LowPassEditField.Value);
-            app.ProcessOrder{x,2}=app.LowPassEditField.Value;
+            app.ProcessOrder{x,2}=app.LowPassFilterType.Value;
+            app.ProcessOrder{x,3}=app.LowPassEditField.Value;
+            switch app.LowPassFilterType.Value
+                case "Butterworth"
+                    app.ProcessOrder{x,4}=app.LowPassFilterOrder.Value;
+                case "Chebyshev I"
+                    app.ProcessOrder{x,4}=[app.LowPassFilterOrder.Value app.LowPassFilterRp.Value];
+                case "Chebyshev II"
+                    app.ProcessOrder{x,4}=[app.LowPassFilterOrder.Value app.LowPassFilterRs.Value];
+                case "Elliptic"
+                    app.ProcessOrder{x,4}=[app.LowPassFilterOrder.Value app.LowPassFilterRp.Value app.LowPassFilterRs.Value];
+            end
 
         case 5 %High pass
             if D==1
@@ -116,7 +123,18 @@ for i=app.ProcessOrderListBox.ItemsData
             end
 
             Data=ProcessHighPass(app,Data, SampleRate,app.HighPassEditField.Value);
-            app.ProcessOrder{x,2}=app.HighPassEditField.Value;
+            app.ProcessOrder{x,2}=app.HighPassFilterType.Value;
+            app.ProcessOrder{x,3}=app.HighPassEditField.Value;
+            switch app.HighPassFilterType.Value
+                case "Butterworth"
+                    app.ProcessOrder{x,4}=app.HighPassFilterOrder.Value;
+                case "Chebyshev I"
+                    app.ProcessOrder{x,4}=[app.HighPassFilterOrder.Value app.HighPassFilterRp.Value];
+                case "Chebyshev II"
+                    app.ProcessOrder{x,4}=[app.HighPassFilterOrder.Value app.HighPassFilterRs.Value];
+                case "Elliptic"
+                    app.ProcessOrder{x,4}=[app.HighPassFilterOrder.Value app.HighPassFilterRp.Value app.HighPassFilterRs.Value];
+            end
 
         case 6 %Derivative
             if D==1
@@ -128,9 +146,20 @@ for i=app.ProcessOrderListBox.ItemsData
             [DataTime,Data]=ProcessDerivative(DataTime,Data,SampleRate,app.DerivativeEditField.Value);
             app.ProcessOrder{x,2}=app.DerivativeEditField.Value;
 
+        case 7 %Delay
+            DataTime=ProcessDelay(DataTime,app.DelayEditField.Value);
+            app.ProcessOrder{x,2}=app.DelayEditField.Value;
+
+        case 8 %Rectify
+            Data=ProcessRectify(app, Data);
+            if app.HalfWaveButton.Value == 1
+                app.ProcessOrder{x,2}="Half Wave";
+            elseif app.FullWaveButton.Value == 1
+                app.ProcessOrder{x,2}="Full Wave";
+            end
 
         case 9 %Custom
-            disp('Run Custom'); %!!! custom feature is not implemented
+            %disp('Run Custom'); %!!! custom feature is not implemented
 
     end
 

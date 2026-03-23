@@ -32,7 +32,7 @@ newData=nan(size(Data))';
 if strcmp(app.BandPassFilterType.Value, "Butterworth") % butterworth
     [bpb,bpa] = butter(app.BandPassFilterOrder.Value,[a b]./(SampleRate/2),'bandpass');
 elseif strcmp(app.BandPassFilterType.Value, "Chebyshev I") % chebyshev type I
-    [bpb,bpa] = cheby1(app.BandPassFilterOrder.Value, app.BandPassFilterRp.Value, [a b]./(SampleRate/2),'bandpass'); %, "ctf"); 3/4/26 removed due to error, this is only a feature for 2024b and up
+    [bpb,bpa] = cheby1(app.BandPassFilterOrder.Value, app.BandPassFilterRp.Value, [a b]./(SampleRate/2),'bandpass'); 
 elseif strcmp(app.BandPassFilterType.Value, "Chebyshev II") % chebyshev type Ii
     [bpb,bpa] = cheby2(app.BandPassFilterOrder.Value, app.BandPassFilterRs.Value, [a b]./(SampleRate/2),'bandpass');
 elseif strcmp(app.BandPassFilterType.Value, "Elliptic") % elliptic
