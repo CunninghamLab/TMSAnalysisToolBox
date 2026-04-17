@@ -7,7 +7,7 @@ function [Plotted_Data, CurrChTitle, Time] = updateSpinners(app,TrialSelected)
 %Determine Data Type
 switch app.DataType 
     case {1,2,4,5,6,8} 
-        switch app.EventType
+        switch app.EpochType
             case 1 %Block
                 Plotted_Data=app.Block.Data{app.Ch,TrialSelected};
                 CurrChTitle=app.Block.Titles(app.Ch);
