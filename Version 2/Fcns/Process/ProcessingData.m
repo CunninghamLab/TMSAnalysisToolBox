@@ -158,9 +158,10 @@ for i=app.ProcessOrderListBox.ItemsData
                 app.ProcessOrder{x,2}="Full Wave";
             end
 
-        case 9 %Custom
-            %disp('Run Custom'); %!!! custom feature is not implemented
-
+        otherwise %Custom
+            CustomFunctionName=app.ProcessOrderListBox.Items{app.ProcessOrderListBox.ItemsData == i};
+            %Run Custom function
+            Data=eval([CustomFunctionName '(Data);']);
     end
 
     x=x+1;

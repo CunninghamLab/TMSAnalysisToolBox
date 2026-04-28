@@ -24,7 +24,7 @@ if nargin < 2
 end
 
 %% Set up the Import Options and import the data
-opts = delimitedTextImportOptions("NumVariables", 17);
+opts = delimitedTextImportOptions("NumVariables", 24);
 
 % Specify range and delimiter
 opts.DataLines = dataLines;
@@ -35,7 +35,7 @@ opts.VariableNames = ["Version12", "VarName2", "VarName3", "VarName4", "VarName5
 opts.VariableTypes = ["string", "string", "string", "string", "string", "string", "string", "string", "string", "string", "string", "string", "string", "string", "string", "string", "string"];
 
 % Specify file level properties
-opts.ExtraColumnsRule = "ignore";
+opts.ExtraColumnsRule = "addvars"; 
 opts.EmptyLineRule = "read";
 
 % Specify variable properties
