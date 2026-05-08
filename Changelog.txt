@@ -1,0 +1,12 @@
+v2_0_1
+-changed "Event Type" to "Epoch Type"
+-minor bug fixes
+
+v2_0_2
+-updated Brainsight data file import to have better functionality
+-minor bug fixes
+
+v2_0_3
+-added "Analyze arrows" under the Condition Trials List Box, these allow the user to scroll through individual condition trials and analyze them automatically
+-added onset/offset threshold lines to "Plot Onset/Offset" switch pop-up plots if a single trial is analyzed
+-started plugin implementation <== this is still in development, do not attempt to use plugins
