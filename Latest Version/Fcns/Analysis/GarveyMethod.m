@@ -51,6 +51,12 @@ switch MCDorSD
 
 end
 
+%Determine Start time, round to nearest time value
+Tol=eps("double");
+DiffTimeStart=abs(app.Time-(app.StartTimemsEditField.Value*0.001));
+minDiffTimeStart=find(DiffTimeStart == min(DiffTimeStart));
+StartTime=app.Time(minDiffTimeStart); %seconds
+app.StartTimemsEditField.Value=StartTime*1000; %display new start time
 
 % find onset and offset
 AllOnOffsetTime=zeros(length(SelectedTrialsData(:,1)),2);
@@ -60,13 +66,6 @@ for i=1:length(SelectedTrialsData(:,1)) %for each trial
     TrialDataNR=SelectedTrialsData{i,1};
     %TrialTime=SelectedTrialsData{i,2};
     TrialData=abs(TrialDataNR); %rectify
-
-    %Determine Start time, round to nearest time value
-    Tol=eps("double");
-    DiffTimeStart=abs(app.Time-(app.StartTimemsEditField.Value*0.001));
-    minDiffTimeStart=find(DiffTimeStart == min(DiffTimeStart));
-    StartTime=app.Time(minDiffTimeStart); %seconds
-    app.StartTimemsEditField.Value=StartTime*1000; %display new start time
 
     %find onset time
     StartIndx=find(abs(app.Time - StartTime) < Tol);
