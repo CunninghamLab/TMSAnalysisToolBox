@@ -162,10 +162,10 @@ for i=app.ProcessOrderListBox.ItemsData
             CustomFunctionName=app.ProcessOrderListBox.Items{app.ProcessOrderListBox.ItemsData == i};
             PluginsFolderName=fullfile(userpath, app.ToolboxDocFolderName, 'Plugins','Processing');
             %if the Custom Opts figure doesn't exist, create it
-            if (string(class(app.CustomProcessingOpts)) ~= "double") && isfield(app.CustomProcessingOpts,CustomFunctionName) && (string(class(app.CustomProcessingOpts.(CustomFunctionName))) == "matlab.ui.Figure" && ishghandle(app.CustomProcessingOpts.(CustomFunctionName)))
+            if (string(class(app.CustomProcessingOpts)) ~= "double") && (string(class(app.CustomProcessingOpts.(CustomFunctionName))) == "matlab.ui.Figure" && ishghandle(app.CustomProcessingOpts.(CustomFunctionName)))
                 existFig=1;
             else
-                app.CustomProcessingOpts.(CustomFunctionName)=uifigure('Name',CustomFunctionName);
+                app.CustomProcessingOpts.(CustomFunctionName)=uifigure('Name','Custom Processing');
                 existFig=0;
             end
             %Run Custom function
