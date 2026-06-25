@@ -101,7 +101,7 @@ for i=app.ProcessOrderListBox.ItemsData
                 SampleRate=app.AllSampleRate(1);
             end
 
-            Data=ProcessLowPass(app,Data, SampleRate,app.LowPassEditField.Value);
+            Data=ProcessLowPass(app,Data, SampleRate,app.LowPassEditField.Value);  
             app.ProcessOrder{x,2}=app.LowPassFilterType.Value;
             app.ProcessOrder{x,3}=app.LowPassEditField.Value;
             switch app.LowPassFilterType.Value
@@ -170,6 +170,10 @@ for i=app.ProcessOrderListBox.ItemsData
             end
             %Run Custom function
             [Data, app.CustomProcessingOpts.(CustomFunctionName)]=eval([CustomFunctionName '(app,existFig,CustomFunctionName,PluginsFolderName,Data);']);
+            PluginsFolderName=fullfile(userpath, app.ToolboxDocFolderName, 'Plugins','Processing');
+            Settings=load(strcat(string(PluginsFolderName),"\",CustomFunctionName,"_Settings.mat"),"UserVar"); %load in custom settings
+            app.ProcessOrder{x,2}=cell2mat(Settings.UserVar(:,2))';
+
     end
 
     x=x+1;
