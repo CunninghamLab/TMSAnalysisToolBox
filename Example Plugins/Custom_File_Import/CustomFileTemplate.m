@@ -54,7 +54,7 @@ File=fullfile(app.Path, app.Filename{i}); %Path and Filename will be selected by
 %Load in the data from "File"
 
 
-%% Extract blocks
+%% Extract Blocks
 %Block form is created by separating the data using "natural" breaks in the 
 %data (ex: start/stop recording times)
 %Output Variables

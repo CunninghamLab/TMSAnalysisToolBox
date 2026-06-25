@@ -42,6 +42,7 @@ ListofVariableLabels={'Variable 1 Label', 'Variable 2 Label', 'Variable 3 Label'
 %Column 1: labels  Column 2 values
 %Then write your detection method
 
+%UserVar
 StartTime=UserVar{1,2}*0.001; %Convert from ms to seconds, app.Time unit is seconds %Time in data to start the search for an onset, this is automatically the first value
 Variable1=UserVar{2,2};
 Variable2=UserVar{3,2};
