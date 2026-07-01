@@ -101,7 +101,7 @@ for i=app.ProcessOrderListBox.ItemsData
                 SampleRate=app.AllSampleRate(1);
             end
 
-            Data=ProcessLowPass(app,Data, SampleRate,app.LowPassEditField.Value);
+            Data=ProcessLowPass(app,Data, SampleRate,app.LowPassEditField.Value);  
             app.ProcessOrder{x,2}=app.LowPassFilterType.Value;
             app.ProcessOrder{x,3}=app.LowPassEditField.Value;
             switch app.LowPassFilterType.Value
@@ -160,8 +160,20 @@ for i=app.ProcessOrderListBox.ItemsData
 
         otherwise %Custom
             CustomFunctionName=app.ProcessOrderListBox.Items{app.ProcessOrderListBox.ItemsData == i};
+            PluginsFolderName=fullfile(userpath, app.ToolboxDocFolderName, 'Plugins','Processing');
+            %if the Custom Opts figure doesn't exist, create it
+            if (string(class(app.CustomProcessingOpts)) ~= "double") && isfield(app.CustomProcessingOpts,CustomFunctionName) && (string(class(app.CustomProcessingOpts.(CustomFunctionName))) == "matlab.ui.Figure" && ishghandle(app.CustomProcessingOpts.(CustomFunctionName)))
+                existFig=1;
+            else
+                app.CustomProcessingOpts.(CustomFunctionName)=uifigure('Name',CustomFunctionName);
+                existFig=0;
+            end
             %Run Custom function
-            Data=eval([CustomFunctionName '(Data);']);
+            [Data, app.CustomProcessingOpts.(CustomFunctionName)]=eval([CustomFunctionName '(app,existFig,CustomFunctionName,PluginsFolderName,Data);']);
+            PluginsFolderName=fullfile(userpath, app.ToolboxDocFolderName, 'Plugins','Processing');
+            Settings=load(strcat(string(PluginsFolderName),"\",CustomFunctionName,"_Settings.mat"),"UserVar"); %load in custom settings
+            app.ProcessOrder{x,2}=cell2mat(Settings.UserVar(:,2))';
+
     end
 
     x=x+1;

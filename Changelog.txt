@@ -1,12 +1,19 @@
-v2_0_1
+v2_0_1 - 4/3/26
 -changed "Event Type" to "Epoch Type"
 -minor bug fixes
 
-v2_0_2
+v2_0_2 - 5/1/26
 -updated Brainsight data file import to have better functionality
 -minor bug fixes
 
-v2_0_3
+v2_0_3 - 5/8/26
 -added "Analyze arrows" under the Condition Trials List Box, these allow the user to scroll through individual condition trials and analyze them automatically
 -added onset/offset threshold lines to "Plot Onset/Offset" switch pop-up plots if a single trial is analyzed
 -started plugin implementation <== this is still in development, do not attempt to use plugins
+
+v2_1_0 - 7/1/26
+-"Plot Onset/Offset" switch figure doesn't create a new figure each time analyze is used
+-added prompt when closing the app to save Condition files
+-added save to .fig button to main graph toolbar
+-added export option button to main graph toolbar
+-plugins for custom data import, processing, and onset/offset detection method are fully implemented 
