@@ -29,7 +29,7 @@ ListofVariableLabels={'Variable 1 Label', 'Variable 2 Label', 'Variable 3 Label'
 %Do not edit this line
 [CustomProcessingOpts,UserVar]=createFigure(existFig,app.CustomProcessingOpts.(CustomFunctionName),PluginsFolderName,numVar,ListofVariableLabels); %Create pop-up figure, do not edit
 
-%% Detection Method
+%% Processing Code
 %Define your user variables
 %UserVar is a numVarx2 cell that contains the labels and values in the pop-up figure
 %Column 1: labels  Column 2 values

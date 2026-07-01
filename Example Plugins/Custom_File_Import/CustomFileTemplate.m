@@ -13,7 +13,7 @@ Output Variables:
 Variable Name       DataType (row x column)             Description
 numChannels         1x1 double                          number of data channels  
 numBlocks           1x1 double                          number of Blocks
-Block               See below                           Block: data, channel titles, coordinates (if applicable)
+Block               See below                           Block: data, channel titles
 AllSampleRate       1x1 double                          sample rate of data collected
 EventTypeOptions    1xnumEventTypes double vector       Event Types to be included (must include Blocks)
 Data                variable                            original load in of the data
@@ -38,9 +38,9 @@ CommentLocAll=numComments x numCommentTextOptions cell array
 
 function [numChannels,numBlocks,Block,AllSampleRate,EventTypeOptions,Data,CommentLocAll,numTrialsC,CommentTxtOptions]=CustomFileTemplate(app,i)
 
-%% Event Type Options
+%% Epoch Type Options
 %{
-    Which event types would you like to be available for this data type
+    Which epoch types would you like to be available for this data type
     1 - Block (Required)
     2 - Comments
     3 - Events
