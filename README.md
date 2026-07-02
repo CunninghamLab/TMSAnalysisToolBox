@@ -6,7 +6,7 @@ The TMS-EMG ToolBox is a data analysis application built for researchers working
 
 Because different labs often use different recording hardware, comparing or combining datasets can be a major hassle. This toolbox solves that problem: whether your data comes from a brand-new experiment or a retrospective study collected on entirely different equipment, it can be imported, organized, processed, and analyzed the same way. That makes it much easier for research sites to pool data and collaborate.
 
-## Stay Up to Date
+### Stay Up to Date
 
 Join our Google Group for announcements and updates: https://groups.google.com/a/case.edu/g/tmsemgkit
 
