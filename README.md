@@ -1,4 +1,4 @@
-# TMS-EMG ToolBox
+# TMS-EMG Kit
 
 *Version 2.0*
 
