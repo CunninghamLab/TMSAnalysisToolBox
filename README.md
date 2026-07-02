@@ -1,6 +1,6 @@
 # TMS-EMG Kit
 
-*Version 2.0*
+*Version 2.1*
 
 The TMS-EMG ToolBox is a data analysis application built for researchers working with Transcranial Magnetic Stimulation (TMS) and electromyography (EMG) data. It takes raw, multi-channel recordings from a wide range of common data acquisition systems and converts them into one standardized format for analysis.
 
@@ -20,11 +20,11 @@ Because different labs often use different recording hardware, comparing or comb
 
 The toolbox is available in two forms:
 
-- **MATLAB-Independent** — a standalone application that does not require a MATLAB license.
+- **MATLAB-Independent** — a standalone application that does not require a MATLAB license (Use Mac or Windows subversions).
 - **MATLAB-Dependent** — runs inside MATLAB (Windows and Mac compatible).
 
 **Requirements for the MATLAB-Dependent version:**
-- MATLAB 2023a
+- MATLAB 2023a - later versions not extensively tested, but will still work. Report Errors and we'll work on fixing them.
 - Statistics and Machine Learning Toolbox
 - Signal Processing Toolbox
 - Mapping Toolbox
@@ -32,36 +32,36 @@ The toolbox is available in two forms:
 ### Quick Start
 
 1. Download the latest release from this repository.
-2. Install MATLAB 2023a and the required toolboxes listed above (skip this step if you're using the MATLAB-Independent version).
-3. Launch the application.
-4. On first launch, you'll be prompted to select a data folder (where your raw files live) and a save folder (where results are stored).
-5. Follow the full tutorial for a walkthrough of importing, organizing, processing, and analyzing your data: https://cunninghamlab.framer.website/tools
+2. Navigate to directory within Matlab or Launch App (MATLAB Independent)
+3. On first launch, you'll be prompted to select a data folder (where your raw files live) and a save folder (where results are stored).
+4. Follow the tutorial for a walkthrough of importing, organizing, processing, and analyzing your data (More videos coming soon): https://cunninghamlab.framer.website/tools
+
+Technical Manual - https://docs.google.com/document/d/1Gd7Sh8_fZ4rhoS_sALAJBU-MV7rWsB2KBn5nFzsNrw8/edit?tab=t.0
 
 ## Examples
 
-**Full Overview**
-
-![Full Overview](Full%20Overview.jpg)
+<img width="1289" height="918" alt="Full Overview" src="https://github.com/user-attachments/assets/f1b8d20a-4d07-4545-ba36-e240fcf84feb" />
 
 **Data Organization / Epoching**
 
-![Epoch](Epoch.jpg)
+<img width="1289" height="906" alt="Epoch" src="https://github.com/user-attachments/assets/b02142d1-4399-4d72-907f-b9a29d10c4d1" />
 
 **Signal Processing**
 
-![Signal Processing](SignalProcessing.jpg)
+<img width="762" height="340" alt="SignalProcessing" src="https://github.com/user-attachments/assets/98a8c7eb-728d-44cf-a1bf-b8b8e04d0463" />
 
 **MEP Analysis**
 
-![MEP Analysis](MEP%20Analysis.jpg)
+<img width="1260" height="895" alt="MEP Analysis" src="https://github.com/user-attachments/assets/2d3f5fe0-3b33-4878-a1c6-9807ce0dea75" />
 
 **Silent Period Analysis**
 
-![Silent Period Analysis](Silent%20Period%20Analysis.jpg)
+<img width="1289" height="906" alt="Silent Period Analysis" src="https://github.com/user-attachments/assets/a485cacc-0b6c-4002-ab03-edf25665fb43" />
+
 
 **Export Outcomes and Settings (Long Format)**
 
-![Export Outcomes and Settings Long Format](Export%20Outcomes%20and%20Settings%20Long%20Format.jpg)
+<img width="1280" height="480" alt="Export Outcomes and Settings Long Format" src="https://github.com/user-attachments/assets/2e8852b0-54a2-4619-8fe7-eea163ed29f8" />
 
 ## Stay Up to Date
 
