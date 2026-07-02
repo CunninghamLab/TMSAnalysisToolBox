@@ -2,6 +2,8 @@
 
 *Version 2.1*
 
+### New Feature Update: Plugin support. Develop and test your own signal processing and analysis algorithms. Community sharing coming soon. 
+
 The TMS-EMG Kit is a data analysis application built for researchers working with Transcranial Magnetic Stimulation and electromyography data. It takes raw, multi-channel recordings from a wide range of common data acquisition systems and converts them into one standardized format for analysis. Whether your data comes from a brand-new experiment or a retrospective study collected on entirely different equipment, it can be imported, organized, processed, and analyzed the same way.
 
 ### Stay Up to Date
