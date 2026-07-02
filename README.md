@@ -2,9 +2,7 @@
 
 *Version 2.1*
 
-The TMS-EMG ToolBox is a data analysis application built for researchers working with Transcranial Magnetic Stimulation (TMS) and electromyography (EMG) data. It takes raw, multi-channel recordings from a wide range of common data acquisition systems and converts them into one standardized format for analysis.
-
-Because different labs often use different recording hardware, comparing or combining datasets can be a major hassle. This toolbox solves that problem: whether your data comes from a brand-new experiment or a retrospective study collected on entirely different equipment, it can be imported, organized, processed, and analyzed the same way. That makes it much easier for research sites to pool data and collaborate.
+The TMS-EMG Kit is a data analysis application built for researchers working with Transcranial Magnetic Stimulation and electromyography data. It takes raw, multi-channel recordings from a wide range of common data acquisition systems and converts them into one standardized format for analysis. Whether your data comes from a brand-new experiment or a retrospective study collected on entirely different equipment, it can be imported, organized, processed, and analyzed the same way.
 
 ### Stay Up to Date
 
