@@ -39,7 +39,7 @@ assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of lab
 % Builds the parameter pop-up and loads/saves this plugin's settings.
 % mfilename tells the helper which settings file belongs to this plugin.
 % DefaultValues pre-fills the pop-up the first time (before settings exist).
-[CustomAnalysisOpts, UserVar] = createPluginFigure(app, existFig, ...
+[CustomAnalysisOpts, UserVar] = createAnalysisPluginFigure(app, existFig, ...
     app.CustomAnalysisOpts, PluginsFolderName, numVar, ListofVariableLabels, mfilename, DefaultValues);
 % -----------------------------------------------------------------------
 
