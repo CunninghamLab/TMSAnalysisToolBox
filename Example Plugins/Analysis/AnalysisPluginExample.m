@@ -1,53 +1,68 @@
 %{
-Custom Onset/Offset Detection Method 
-The user should not edit any inputs or outputs of the function
-Inputs: These are all from the main app data
-app - allows access to main app figure
-existFig - is the pop-up fig open 
-PluginsFolderName - name of location of the analysis plugins folder
-AnalyzeSampleRate - the sample rate of the data after processing
-PreStimData - data within the prestim range set in the main app figure, numSamples x numTrials matrix, each column is the preStimData for a trial
-SelectedTrialsData - data in the selected trials, unit=volts, numTrials x 1 cell, column 1 contains the data for each trial, if using the average each condition is a trial  
+AnalysisPluginExample - simple example script to show users how to make analysis plugins
 
-Outputs: These are all expected outputs, ensure that the formats match what is expected
-AllOnOffsetTime - the onset and offset times found for each trial, format numTrials x 2 double matrix, column 1 are the onset times, column 2 are the offset times, time is in seconds
-CustomAnalysisOpts - the pop-up figure object, user shouldn't edit this
-meanPreStimData - mean of the rectified prestim data for each trial, 1 x numTrials double vector
-OnsetLimit - the Onset threshold limit for each trial, 1 x numTrials double vector
-OffsetLimit - the offset threshold limit for each trial, 1 x numTrials double vector
+HOW TO USE THIS TEMPLATE
+  Edit only the three ZONE blocks below:
+    ZONE 1  set numVar, your parameter labels, and optional default values
+    ZONE 2  unpack your parameters from UserVar
+    ZONE 3  write your detection method and fill the outputs
+  Everything else is handled for you by createPluginFigure.
+  Optional: add a diagnostic plot to see how inputs change detection -
+  see ZScoreOnsetOffsetDetect.m for a worked example.
 
-%Note: if any of the outputs are values that are not needed for your method,
-please create empty variables for them. (i.e. meanPrestimData=[])
+INPUTS (provided by the app - do not change)
+  app                - handle to the main app (e.g. app.Time, in seconds)
+  existFig           - whether the parameter pop-up is already open
+  PluginsFolderName  - folder for this plugin's settings file
+  AnalyzeSampleRate  - sample rate after processing, Hz
+  PreStimData        - baseline window, numSamples x numTrials
+  SelectedTrialsData - trial signals in VOLTS, numTrials x 1 cell
 
-
+OUTPUTS (you must return these shapes and units)
+  AllOnOffsetTime - numTrials x 2: onset (col 1) & offset (col 2), SECONDS
+  OnsetLimit      - 1 x numTrials, onset threshold,  VOLTS   (or [])
+  OffsetLimit     - 1 x numTrials, offset threshold, VOLTS   (or [])
+  meanPreStimData - 1 x numTrials baseline mean,     VOLTS   (or [])
+  CustomAnalysisOpts - the pop-up object, returned untouched
+  Return [] for any output your method does not compute.
 %}
 function [AllOnOffsetTime, OnsetLimit, OffsetLimit, meanPreStimData, CustomAnalysisOpts]=AnalysisPluginExample(app, existFig, PluginsFolderName, AnalyzeSampleRate, PreStimData, SelectedTrialsData)
 
-%% Create figure
-%User Inputs============================================================================================================
+% ======================= ZONE 1: your parameters =======================
+numVar = 2;                                   % how many parameters you need
+ListofVariableLabels = {'Onset Threshold (mV)','Offset Threshold (mV)'};
+DefaultValues        = [0.2, 0.3];             % first-run defaults, same order/units as labels ([] for none)
+% =======================================================================
+assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of labels.');
 
-%variables
-numVar=2; %how many variables
+% --------------------------- DO NOT EDIT -------------------------------
+% Builds the parameter pop-up and loads/saves this plugin's settings.
+% mfilename tells the helper which settings file belongs to this plugin.
+% DefaultValues pre-fills the pop-up the first time (before settings exist).
+[CustomAnalysisOpts, UserVar] = createAnalysisPluginFigure(app, existFig, ...
+    app.CustomAnalysisOpts, PluginsFolderName, numVar, ListofVariableLabels, mfilename, DefaultValues);
+% -----------------------------------------------------------------------
 
-%Give each variable a label
-ListofVariableLabels={'Onset Threshold (mV)', 'Offset Threshold (mV)'};
-%============================================================================================================
+% ======================= ZONE 2: unpack parameters =====================
+% UserVar is (numVar+1) x 2; column 2 holds the values.
+% Index 1 is ALWAYS the auto-added Start Time. YOUR parameters start at 2.
+StartTime = UserVar{1,2}*0.001;   % ms -> s, to match app.Time
+OnsetThreshold = UserVar{2,2}*0.001; %convert to mV, data is in volts, so convert to mV
+OffsetThreshold = UserVar{3,2}*0.001; %convert to mV, data is in volts, so convert to mV
 
-%Do not edit this line
-[CustomAnalysisOpts,UserVar]=createFigure(app,existFig,app.CustomAnalysisOpts,PluginsFolderName,numVar,ListofVariableLabels); %Create pop-up figure, do not edit
+% =======================================================================
 
-%% Detection Method
-%Define your user variables
-%UserVar is a numVarx2 cell that contains the labels and values in the pop-up figure
-%Column 1: labels  Column 2 values
-%Then write your detection method
+% ======================= ZONE 3: detection method ======================
+% Loop over SelectedTrialsData (each cell = one trial, in volts) and set,
+% for every trial i:
+%     AllOnOffsetTime(i,1) = onset time   (seconds)
+%     AllOnOffsetTime(i,2) = offset time  (seconds)
+% Preallocate as NaN so any trial with no detection stays NaN.
+nTrials = numel(SelectedTrialsData);
+AllOnOffsetTime = nan(nTrials, 2);
+OnsetLimit = nan(1,nTrials); OffsetLimit = nan(1,nTrials); meanPreStimData = [];   % set these if your method uses them
 
-StartTime=UserVar{1,2}*0.001; %Convert from ms to s %Time in data to start the search for an onset, this is automatically the first value
-OnsetThreshold=UserVar{2,2}*0.001; %in mV while data is in volts, convert to volts
-OffsetThreshold=UserVar{3,2}*0.001; %in mV while data is in volts, convert to volts
-
-% VV Write your detection method here VV 
-
+%--------------------------------------------------------------------------
 %Determine Start time, round to nearest time value
 Tol=eps("double");
 DiffTimeStart=abs(app.Time-(StartTime));
@@ -57,8 +72,6 @@ CustomAnalysisOpts.Children.Children(2).Value=StartTime*1000; %display new start
 %CustomAnalysisOpts.Children.Children = the edit fields for the pop-up figure
 
 SelectedTrialsData=cellfun(@abs,SelectedTrialsData,'UniformOutput',false);
-OnsetLimit=nan(1,length(SelectedTrialsData)); OffsetLimit=nan(1,length(SelectedTrialsData));
-AllOnOffsetTime=zeros(length(SelectedTrialsData(:,1)),2);
 TrialTime=app.Time;
 for i=1:length(SelectedTrialsData) %for each trial
     TrialData=SelectedTrialsData{i,1};
@@ -106,97 +119,25 @@ for i=1:length(SelectedTrialsData) %for each trial
     end
 
 
-OnsetLimit(i)=OnsetThreshold;
+OnsetLimit(i)=OnsetThreshold; 
 OffsetLimit(i)=OffsetThreshold;
 
 end %end for each trial
 
-meanPreStimData=[];
+% OPTIONAL: echo the snapped Start Time back into the pop-up field.
+% Finds the field by grid row (row 1), so it never depends on child order.
+% ef = CustomAnalysisOpts.Children.Children;
+% ef = ef(arrayfun(@(c) string(class(c))=="matlab.ui.control.NumericEditField", ef));
+% ef(arrayfun(@(c) c.Layout.Row==1, ef)).Value = StartTime*1000;
 
-%If these variables are not created in the custom detection method, create empty vectors for them
-% AllOnOffsetTime=[]; %return in unit seconds
-% OnsetLimit=[];      %return in unit volts
-% OffsetLimit=[];     %return in unit volts
-% meanPreStimData=[]; %return in unit volts
-
+% ----- OPTIONAL diagnostic plot (see ZScoreOnsetOffsetDetect.m) ---------
+% To let users visualize detection:
+%   1) add a numeric parameter in ZONE 1, e.g. 'Plot trial (0=off)', and
+%      unpack it in ZONE 2:  PlotTrial = round(UserVar{N,2});
+%   2) inside the loop, stash one trial's data when i == PlotTrial;
+%   3) after the loop, if PlotTrial >= 1, call your own local plot function
+%      (define it below the main function, under a DO NOT EDIT banner).
+% -----------------------------------------------------------------------
+% =======================================================================
 
 end %end function
-
-function [CustomAnalysisOpts,UserVar]=createFigure(app,existFig,appCustomAnalysisOpts,PluginsFolderName,numVar,ListofVariableLabels)
-
-
-existSettings=isfile([PluginsFolderName '\' mfilename '_Settings.mat']);
-ListofVariableLabels(2:end+1)=ListofVariableLabels;
-ListofVariableLabels{1}='Start Time (ms)';
-CustomAnalysisOpts=appCustomAnalysisOpts;
-numRows=numVar+1;
-if existFig == 0 %if the figure doesn't already exist
-    numColumns=2; %number of columns, one for the label one for the variable
-
-    CustomAnalysisOpts.Position(3:4)=[130*numColumns 40*(numRows+1)];
-    Grid=uigridlayout(CustomAnalysisOpts,[numRows+1 numColumns]);
-    Grid.RowHeight(:,1:numRows)={'fit'};
-    Grid.ColumnWidth(:,1:numColumns)={'fit'};
-
-    for i=1:numRows %Create the edit field for each variable
-        Var.(['Var' num2str(i) 'Label'])=uilabel(Grid,'text',ListofVariableLabels{i});
-        Var.(['Var' num2str(i) 'Label']).Layout.Row=i; Var.(['Var' num2str(i) 'Label']).Layout.Column=1;
-        Var.(['Var' num2str(i) 'EditField'])=uieditfield(Grid, 'numeric');
-        Var.(['Var' num2str(i) 'EditField']).Layout.Row=i; Var.(['Var' num2str(i) 'EditField']).Layout.Column=2;
-    end
-
-    UpdateButton=uibutton(Grid,'text','Update','ButtonPushedfcn', @(src,event) UpdateButtonPushed(CustomAnalysisOpts,Var));
-    UpdateButton.Enable=1;
-    UpdateButton.Layout.Row=numRows+1; %last row
-    UpdateButton.Layout.Column=1;
-
-    if existSettings == 1 %fill in with settings
-        load(string([PluginsFolderName '\' mfilename '_Settings.mat']),"UserVar");
-        for i=1:numRows %Create the edit field for each variable
-            Var.(['Var' num2str(i) 'EditField']).Value=UserVar{i,2};
-        end
-
-    end
-
-    uiwait(CustomAnalysisOpts);
-
-else %if the pop-up exists
-    UserVar=cell(numRows,2);
-    UserVar(:,1)=ListofVariableLabels';
-    e=1; Values=nan(1,numRows);
-    for i=1:length(appCustomAnalysisOpts.Children.Children)
-        ValuesLoc = string(class(appCustomAnalysisOpts.Children.Children(i))) == "matlab.ui.control.NumericEditField";
-        if ValuesLoc == 1
-            Values(e)=appCustomAnalysisOpts.Children.Children(i).Value;
-            e=e+1;
-        end
-    end
-    Values(isnan(Values))=[]; 
-    if length(Values) ~= numRows %if there are different amount of values for how many rows there are throw an error
-        error('Number of figure values does not match number of rows');
-    end
-    UserVar(:,2)=num2cell(Values');
-
-
-end
-
-    %Function for figure
-    function UpdateButtonPushed(CustomAnalysisOpts,Var)
-
-        %When the update button is clicked update the settings file
-        uiresume(CustomAnalysisOpts);
-
-        %Define User Variables
-        UserVar=cell(numRows,2);
-        for v=1:numRows
-            UserVar{v,2}=Var.(['Var' num2str(v) 'EditField']).Value;
-            UserVar{v,1}=Var.(['Var' num2str(v) 'Label']).Text;
-        end
-
-        %Update/create settings file
-        save(string([PluginsFolderName '\' mfilename '_Settings.mat']), "UserVar");
-
-    end
-
-app.StartTimemsEditField.Value=UserVar{1,2}; %for plotting in main graph
-end %end createFigure()

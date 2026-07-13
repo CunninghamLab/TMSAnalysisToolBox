@@ -17,3 +17,8 @@ v2_1_0 - 7/1/26
 -added save to .fig button to main graph toolbar
 -added export option button to main graph toolbar
 -plugins for custom data import, processing, and onset/offset detection method are fully implemented 
+
+v2_1_1 - 7/13/26
+-bug fix for Plugins settings
+-updated plugins templates and examples
+-bug fix: Prestim Mean and PreStim RMS were output in volts instead of millivolts
