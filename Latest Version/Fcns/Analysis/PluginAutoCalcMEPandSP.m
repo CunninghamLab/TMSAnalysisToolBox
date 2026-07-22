@@ -2,9 +2,8 @@
 %MEP = amplitude and area under the curve
 %SP = percent decrease and normalized area under the curve
 
-function PluginAutoCalcMEPandSP(app,SelectedTrials,AnalysisType)
-for i=1:length(SelectedTrials)
-    AnalyzeData=SelectedTrials{i};
+function PluginAutoCalcMEPandSP(i,app,PreStimData,AnalyzeData,AnalysisType)
+
     switch AnalysisType
         case "MEP"
             %Calculate amplitude and area
@@ -27,9 +26,5 @@ for i=1:length(SelectedTrials)
             app.SP_Area(i,:) = (1-SPArea/areaMeanSP)*100;      %normalized area of slient period unit
     
     end
-end
-
-
-
 
 end
