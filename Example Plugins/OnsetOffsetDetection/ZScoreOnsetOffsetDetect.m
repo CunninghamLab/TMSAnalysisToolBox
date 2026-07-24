@@ -28,9 +28,9 @@ OUTPUTS (shapes and units)
   OnsetLimit      - 1 x numTrials, onset threshold,  VOLTS   (or [])
   OffsetLimit     - 1 x numTrials, offset threshold, VOLTS   (or [])
   meanPreStimData - 1 x numTrials baseline mean,     VOLTS   (or [])
-  CustomAnalysisOpts - the pop-up object, returned untouched
+  CustomOnOffDetectOpts - the pop-up object, returned untouched
 %}
-function [AllOnOffsetTime, OnsetLimit, OffsetLimit, meanPreStimData, CustomAnalysisOpts]=ZScoreOnsetOffsetDetect(app, existFig, PluginsFolderName, AnalyzeSampleRate, PreStimData, SelectedTrialsData)
+function [AllOnOffsetTime, OnsetLimit, OffsetLimit, meanPreStimData, CustomOnOffDetectOpts]=ZScoreOnsetOffsetDetect(app, existFig, PluginsFolderName, AnalyzeSampleRate, PreStimData, SelectedTrialsData)
 
 % ======================= ZONE 1: your parameters =======================
 numVar = 5;                                   % how many parameters you need
@@ -42,8 +42,8 @@ assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of lab
 % --------------------------- DO NOT EDIT -------------------------------
 % Builds the parameter pop-up and loads/saves this plugin's settings.
 % mfilename tells the helper which settings file belongs to this plugin.
-[CustomAnalysisOpts, UserVar] = createAnalysisPluginFigure(app, existFig, ...
-    app.CustomAnalysisOpts, PluginsFolderName, numVar, ListofVariableLabels, mfilename, DefaultValues);
+[CustomOnOffDetectOpts, UserVar] = createOnOffDetectPluginFigure(app, existFig, ...
+    app.CustomOnOffDetectOpts, PluginsFolderName, numVar, ListofVariableLabels, mfilename, DefaultValues);
 % -----------------------------------------------------------------------
 
 % ======================= ZONE 2: unpack parameters =====================
@@ -66,7 +66,7 @@ TrialTime = app.Time;            % seconds, one time value per sample
 StartTime      = TrialTime(StartIndx);
 
 % Echo the snapped Start Time back into the pop-up (field found by grid row 1).
-ef = CustomAnalysisOpts.Children.Children;
+ef = CustomOnOffDetectOpts.Children.Children;
 ef = ef(arrayfun(@(c) string(class(c))=="matlab.ui.control.NumericEditField", ef));
 ef(arrayfun(@(c) c.Layout.Row==1, ef)).Value = StartTime*1000;
 
