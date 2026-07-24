@@ -6,6 +6,7 @@ HOW TO USE THIS TEMPLATE
     ZONE 1  set numVar, your parameter labels, and optional default values
     ZONE 2  unpack your parameters from UserVar
     ZONE 3  write your Analysis method and fill the outputs
+    ZONE 4  fill in the app.CustomOutputs variable to trials not analyzed
   Everything else is handled for you by createPluginFigure.
   Optional: add a diagnostic plot to see how inputs change detection -
   see ZScoreOnsetOffsetDetect.m for a worked example.
@@ -25,8 +26,8 @@ INPUTS (provided by the app - do not change)
           It would be best to add an IF statement that checks if override was used or not using the variable app.OverrideUsed
 
 OUTPUTS (you must return these shapes and units)
-  MissingAnalyze     - number of trials that are not analyzed due to the onset or offset not being found
-  CustomOutputs      - add the custom outputs to this scruct (e.g. CustomOutputs.Latency)
+  MissingAnalyze     - number of trials that are not analyzed due to the onset or offset not being found, double scalar
+  CustomOutputs      - add the custom outputs to this scruct (e.g. CustomOutputs.Latency), double column vector, each row is the result from a trial
   CustomAnalysisOpts - the pop-up object, returned untouched
   Return [] for any output your method does not compute.
 %}
@@ -69,9 +70,7 @@ assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of lab
 PulseTime = UserVar{1,2}; %in seconds
 PlotTrial = round(UserVar{2,2}); %plot
 
-% =======================================================================
-
-% ======================= ZONE 3: Analysis ======================
+% ======================== vv DO NOT EDIT vv ==============================
 Analyze=1; %Boolean, whether or not to analyze the trial, if override is used, this is always 1, if override isn't used this is handled in the if statement
 
 % Diagnostic-plot setup: only active when PlotTrial points at a real trial.
@@ -99,7 +98,10 @@ for i=1:length(SelectedTrialsData) %for each trial
 
     end
     if Analyze == 1
+% ======================== ^^ DO NOT EDIT ^^ ==============================
 
+        % ==============================================================================================================================
+        % ======================= ZONE 3: Analysis ======================
         %Data to be analyzed
         AnalyzeData=SelectedTrialsData{i,1}(Start:End);
 
@@ -130,9 +132,11 @@ for i=1:length(SelectedTrialsData) %for each trial
 
         end
 
-    
-
-    else
+        % ==============================================================================================================================
+        % ==============================================================================================================================
+    else %don't analyze becuase an onset/offset wasn't found
+        % ==============================================================================================================================
+        % ======================= ZONE 4: Missed Analysis Fill In ======================
         % Stash this trial's data for the optional diagnostic plot
         if doPlot && i == PlotTrial
             plotData=struct('AnalyzeData',[],'AvgDepth',0,'MaxDepth',0,'MaxDepthLoc',0,'meanPreStim',0);
@@ -141,7 +145,10 @@ for i=1:length(SelectedTrialsData) %for each trial
         CustomOutputs.Latency(i,:)=nan;
         CustomOutputs.NormDepth(i,:)=nan;
         CustomOutputs.NormMaxDepth(i,:)=nan;
-    end
+        % ==============================================================================================================================
+        % ==============================================================================================================================
+
+    end %end if Analyze, don't edit the overall structure of this if statement
 end %end for each trial
 
 % Optional diagnostic plot: shows the envelope, threshold, and detected

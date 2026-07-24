@@ -6,6 +6,7 @@ HOW TO USE THIS TEMPLATE
     ZONE 1  set numVar, your parameter labels, and optional default values
     ZONE 2  unpack your parameters from UserVar
     ZONE 3  write your Analysis method and fill the outputs
+    ZONE 4  fill in the app.CustomOutputs variable to trials not analyzed
   Everything else is handled for you by createPluginFigure.
   Optional: add a diagnostic plot to see how inputs change detection -
   see ZScoreOnsetOffsetDetect.m for a worked example.
@@ -25,10 +26,9 @@ INPUTS (provided by the app - do not change)
           It would be best to add an IF statement that checks if override was used or not using the variable app.OverrideUsed
 
 OUTPUTS (you must return these shapes and units)
-  MissingAnalyze     - number of trials that are not analyzed due to the onset or offset not being found
-  CustomOutputs      - add the custom outputs to this scruct (e.g. CustomOutputs.Latency)
+  MissingAnalyze     - number of trials that are not analyzed due to the onset or offset not being found, double scalar
+  CustomOutputs      - add the custom outputs to this scruct (e.g. CustomOutputs.Latency), double column vector, each row is the result from a trial
   CustomAnalysisOpts - the pop-up object, returned untouched
-  Return [] for any output your method does not compute.
 %}
 
 %{
@@ -47,8 +47,6 @@ numVar = 2;                                   % how many parameters you need
 ListofVariableLabels = {'Pulse Time (s)','Plot TriaL (0=off)'};
 DefaultValues        = [0, 0];             % first-run defaults, same order/units as labels ([] for none)
 
-
-
 % =======================================================================
 assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of labels.');
 
@@ -60,9 +58,6 @@ assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of lab
     app.CustomAnalysisOpts, PluginsFolderName, numVar, ListofVariableLabels, mfilename, DefaultValues);
 % -----------------------------------------------------------------------
 
-
-
-
 % ======================= ZONE 2: unpack parameters =====================
 % UserVar is (numVar+1) x 2; column 2 holds the values.
 % Index 1 is ALWAYS the auto-added Start Time. YOUR parameters start at 2.
@@ -71,7 +66,7 @@ PlotTrial = round(UserVar{2,2}); %plot
 
 % =======================================================================
 
-% ======================= ZONE 3: Analysis ======================
+% ======================== vv DO NOT EDIT vv ==============================
 Analyze=1; %Boolean, whether or not to analyze the trial, if override is used, this is always 1, if override isn't used this is handled in the if statement
 
 % Diagnostic-plot setup: only active when PlotTrial points at a real trial.
@@ -99,8 +94,12 @@ for i=1:length(SelectedTrialsData) %for each trial
 
     end
     if Analyze == 1
+        % ======================== ^^ DO NOT EDIT ^^ ==============================
+
+        % ==============================================================================================================================
+        % ======================= ZONE 3: Analysis ======================
         %For MEP data use non-rectified data if needed
-        if ~isempty(app.Processed_Conditions_DataAll{3}) && AnalyzeMethod=="MEP" %if the third cell isn't empty then the non-rectified data was saved and if MEP is done, use the non-rectified data
+        if ~isempty(app.Processed_Conditions_DataAll{3}) && AnalysisType=="MEP" %if the third cell isn't empty then the non-rectified data was saved and if MEP is done, use the non-rectified data
             if app.AverageCheckBox.Value == 1
                 TrialDataNR=app.Processed_Conditions_DataAll{3}(1,:);
             else
@@ -120,7 +119,7 @@ for i=1:length(SelectedTrialsData) %for each trial
         %the variables app.MEP_Amp, app.MEP_Area, app.SP_PercDecrease, app.SP_Area need to be filled in in this function
         PluginAutoCalcMEPandSP(i,app,PreStimData,AnalyzeData,AnalysisType);
 
-        %% Analyses 
+        %Analyses=====
         %The number of turns (NT) is counted as the significant peaks occurring during the MEP Dur
         [Pks,Locs]=findpeaks(AnalyzeData);
         [PksN,LocsN]=findpeaks(-AnalyzeData);
@@ -157,26 +156,33 @@ for i=1:length(SelectedTrialsData) %for each trial
             NTData=[Locs' Pks'];
             NPData=[GreaterThanzero(NegCross) LessThanzero(PosCross); GreaterThanzero(NegCross)+1 LessThanzero(PosCross)+1];
             plotData=struct('AnalyzeData',AnalyzeData,'NT',NTData,'NP',NPData');
-            
+
 
         end
 
-    else
+        % ==============================================================================================================================
+        % ==============================================================================================================================
+
+    else %don't analyze becuase an onset/offset wasn't found
+        % ==============================================================================================================================
+        % ======================= ZONE 4: Missed Analysis Fill In ======================
         % Stash this trial's data for the optional diagnostic plot
         if doPlot && i == PlotTrial
             NTData=[0 0];
             NPData=[0 0; 0 0];
             plotData=struct('AnalyzeData',[],'NT',NTData,'NP',NPData');
-            
+
 
         end
         CustomOutputs.NT(i,:)=nan;
         CustomOutputs.NP(i,:)=nan;
         CustomOutputs.Latency(i,:)=nan;
         CustomOutputs.Thickness(i,:)=nan;
-    end
+        % ==============================================================================================================================
+        % ==============================================================================================================================
 
-    
+    end %end if Analyze, don't edit the overall structure of this if statement
+
 end %end for each trial
 
 % Optional diagnostic plot: shows the envelope, threshold, and detected
