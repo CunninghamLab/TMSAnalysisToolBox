@@ -43,7 +43,8 @@ if existFig == 0 %pop-up doesn't exist yet - build it
     numColumns=2; %one column for the label, one for the value
 
     CustomOnOffDetectOpts.Position(3:4)=[130*numColumns 40*(numRows+1)];
-    Grid=uigridlayout(CustomOnOffDetectOpts,[numRows+1 numColumns]);
+    Grid=uigridlayout(CustomOnOffDetectOpts,[numRows+1 numColumns]); % set(CustomOnOffDetectOpts,'Color',[245, 212, 122]./255);
+    set(Grid,'BackgroundColor',[245, 212, 122]./255); %light yellow
     Grid.RowHeight(:,1:numRows)={'fit'};
     Grid.ColumnWidth(:,1:numColumns)={'fit'};
 
@@ -55,6 +56,7 @@ if existFig == 0 %pop-up doesn't exist yet - build it
     end
 
     UpdateButton=uibutton(Grid,'text','Update','ButtonPushedfcn', @(src,event) UpdateButtonPushed(CustomOnOffDetectOpts,Var));
+    set(UpdateButton,'BackgroundColor',[242, 245, 243]./255);
     UpdateButton.Enable=1;
     UpdateButton.Layout.Row=numRows+1; %last row
     UpdateButton.Layout.Column=1;
