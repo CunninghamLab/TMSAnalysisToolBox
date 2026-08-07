@@ -15,16 +15,15 @@ switch MCDorSD
         meanPreStimData=mean(PreStimData);
         MCDConstant=app.MCDConstantEditField.Value;
 
-        switch app.AnalysisOptionDropDown.Value
-            case app.AnalysisOptionDropDown.ItemsData{1} %MEP
+        switch AnalyzeMethod
+            case "MEP"
                 %LowEndLimit=meanPreStimData - MCD*MCDConstant;
                 HighEndLimit=meanPreStimData + MCD*MCDConstant;
 
-            case app.AnalysisOptionDropDown.ItemsData{2} %SP
+            case "SP"
                 HighEndLimit=meanPreStimData - MCD*MCDConstant;
                 
-            case app.AnalysisOptionDropDown.ItemsData{3} %MEP
-
+            case "EMG"
         end
         
 
@@ -36,15 +35,15 @@ switch MCDorSD
         meanPreStimData=mean(abs(PreStimData)); %mean of rectified data
         PreStimSTDV=std(abs(PreStimData));
 
-        switch app.AnalysisOptionDropDown.Value
-            case app.AnalysisOptionDropDown.ItemsData{1} %MEP
+        switch AnalyzeMethod
+            case "MEP" 
                 OnsetLimit=meanPreStimData + app.OnsetSDEditField.Value*PreStimSTDV;
                 OffsetLimit=meanPreStimData + app.OffsetSDEditField.Value*PreStimSTDV;
 
-            case app.AnalysisOptionDropDown.ItemsData{2} %SP
+            case "SP"
                 OnsetLimit=meanPreStimData - app.OnsetSDEditField.Value*PreStimSTDV;
                 OffsetLimit=meanPreStimData - app.OffsetSDEditField.Value*PreStimSTDV;
-            case app.AnalysisOptionDropDown.ItemsData{3} %EMG
+            case "EMG"
 
         end
 

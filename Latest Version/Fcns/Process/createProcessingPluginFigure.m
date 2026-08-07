@@ -9,6 +9,7 @@ if existFig == 0 %if the figure doesn't already exist
 
     CustomProcessingOpts.Position(3:4)=[140*numColumns 40*(numRows+1)];
     Grid=uigridlayout(CustomProcessingOpts,[numRows+1 numColumns]);
+    set(Grid,'BackgroundColor',[92, 159, 247]./255); %light yellow
     Grid.RowHeight(:,1:numRows)={'fit'};
     Grid.ColumnWidth(:,1:numColumns)={'fit'};
 
@@ -20,6 +21,7 @@ if existFig == 0 %if the figure doesn't already exist
     end
 
     UpdateButton=uibutton(Grid,'text','Update','ButtonPushedfcn', @(src,event) UpdateButtonPushed(CustomProcessingOpts,Var));
+    set(UpdateButton,'BackgroundColor',[242, 245, 243]./255);
     UpdateButton.Enable=1;
     UpdateButton.Layout.Row=numRows+1; %last row
     UpdateButton.Layout.Column=1;

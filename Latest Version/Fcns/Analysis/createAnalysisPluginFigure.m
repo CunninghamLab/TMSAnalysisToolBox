@@ -1,38 +1,16 @@
-%{
-createPluginFigure - shared parameter pop-up builder for analysis plugins.
 
-DO NOT EDIT. Every analysis plugin calls this. It builds the numeric
-parameter pop-up, auto-prepends a "Start Time (ms)" field, and loads/saves
-the calling plugin's settings file.
-
-Keep this file in the same folder as your plugins (Plugins\Analysis) so it
-is found on the MATLAB path when a plugin runs.
-
-Inputs:
-  app, existFig, appCustomAnalysisOpts, PluginsFolderName, numVar,
-  ListofVariableLabels - passed straight through from the plugin.
-  PluginName - pass mfilename from the plugin so each plugin gets its own
-               <PluginName>_Settings.mat (do NOT hardcode a name here).
-
-Outputs:
-  CustomAnalysisOpts - the pop-up figure object.
-  UserVar - (numVar+1) x 2 cell: column 1 = labels, column 2 = values.
-            Row 1 is always the Start Time field.
-%}
-function [CustomAnalysisOpts,UserVar]=createAnalysisPluginFigure(app,existFig,appCustomAnalysisOpts,PluginsFolderName,numVar,ListofVariableLabels,PluginName,DefaultValues)
+function [CustomAnalysisOpts, UserVar] = createAnalysisPluginFigure(existFig,appCustomAnalysisOpts, PluginsFolderName, numVar, ListofVariableLabels, PluginName, DefaultValues)
 
 settingsFile  = fullfile(PluginsFolderName, [PluginName '_Settings.mat']);
 existSettings = isfile(settingsFile);
 
-ListofVariableLabels(2:end+1)=ListofVariableLabels;
-ListofVariableLabels{1}='Start Time (ms)';
 CustomAnalysisOpts=appCustomAnalysisOpts;
-numRows=numVar+1;
+numRows=numVar;
 
 % Optional first-run default field values (used only before a settings file
 % exists). Accept numVar entries (your parameters, Start Time defaults to 0)
 % or numRows entries (Start Time included).
-if nargin < 8 || isempty(DefaultValues)
+if nargin < 7 || isempty(DefaultValues)
     DefaultValues = [];
 elseif numel(DefaultValues)==numVar
     DefaultValues = [0, DefaultValues(:).'];      % prepend Start Time default
@@ -47,6 +25,7 @@ if existFig == 0 %pop-up doesn't exist yet - build it
 
     CustomAnalysisOpts.Position(3:4)=[130*numColumns 40*(numRows+1)];
     Grid=uigridlayout(CustomAnalysisOpts,[numRows+1 numColumns]);
+    set(Grid,'BackgroundColor',[250, 134, 85]./255); %orange
     Grid.RowHeight(:,1:numRows)={'fit'};
     Grid.ColumnWidth(:,1:numColumns)={'fit'};
 
@@ -58,6 +37,7 @@ if existFig == 0 %pop-up doesn't exist yet - build it
     end
 
     UpdateButton=uibutton(Grid,'text','Update','ButtonPushedfcn', @(src,event) UpdateButtonPushed(CustomAnalysisOpts,Var));
+    set(UpdateButton,'BackgroundColor',[242, 245, 243]./255);
     UpdateButton.Enable=1;
     UpdateButton.Layout.Row=numRows+1; %last row
     UpdateButton.Layout.Column=1;
@@ -111,5 +91,5 @@ end
         save(settingsFile, "UserVar");
     end
 
-app.StartTimemsEditField.Value=UserVar{1,2}; %for plotting in main graph
-end %end createPluginFigure()
+
+end
