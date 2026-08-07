@@ -34,6 +34,7 @@ ListofVariableLabels = {'Variable 1 Label', 'Variable 2 Label', 'Variable 3 Labe
 DefaultValues        = [0, 0, 0];             % first-run defaults, same order/units as labels ([] for none)
 % =======================================================================
 assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of labels.');
+DefaultValues=checkDefaultLength(DefaultValues,numVar); %checks length of DefaultValues variable
 
 % --------------------------- DO NOT EDIT -------------------------------
 % Builds the parameter pop-up and loads/saves this plugin's settings.
@@ -60,7 +61,7 @@ Var3      = UserVar{4,2};
 % Preallocate as NaN so any trial with no detection stays NaN.
 nTrials = numel(SelectedTrialsData);
 AllOnOffsetTime = nan(nTrials, 2);
-OnsetLimit = []; OffsetLimit = []; meanPreStimData = [];   % set these if your method uses them
+OnsetLimit = nan(1,nTrials); OffsetLimit = nan(1,nTrials); meanPreStimData = [];   % set these if your method uses them
 
 % --- PLACEHOLDER so the plugin runs as-is. Replace with your method. ---
 % This dummy just marks each trial active from Start Time to the trial end.

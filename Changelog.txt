@@ -23,5 +23,6 @@ v2_1_1 - 7/13/26
 -updated plugins templates and examples
 -bug fix: Prestim Mean and PreStim RMS were output in volts instead of millivolts
 
-v2_1_2 - 
-- added Analysis plugins functionality
+v2_1_2 - 8/7/26
+-started adding Analysis plugins features
+-minor bug fixes
