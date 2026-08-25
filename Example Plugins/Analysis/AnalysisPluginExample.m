@@ -1,5 +1,5 @@
 %{
-AnalysisPluginExample_MEP - simple example script to show users how to make plugins for MEP analysis
+AnalysisPluginExample - simple example script to show users how to make analysis plugins
 
 HOW TO USE THIS TEMPLATE
   Edit only the three ZONE blocks below:
@@ -40,7 +40,7 @@ The number of phased (NP) is counted by the zero-crossing points between the MEP
 Source: https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2024.1415257/full#sec3 (MEPFeatX paper)
 %}
 
-function [MissingAnalyze, CustomOutputs, CustomAnalysisOpts]=AnalysisPluginExample_MEP(app,existFig,PluginsFolderName,AnalysisType,AnalyzeSampleRate,PreStimData,SelectedTrialsData,MissingAnalyze,Start,End)
+function [MissingAnalyze, CustomOutputs, CustomAnalysisOpts]=AnalysisPluginExample(app,existFig,PluginsFolderName,AnalyzeSampleRate,PreStimData,SelectedTrialsData,MissingAnalyze,Start,End)
 
 % ======================= ZONE 1: your parameters =======================
 numVar = 2;                                   % how many parameters you need
@@ -99,7 +99,7 @@ for i=1:length(SelectedTrialsData) %for each trial
         % ==============================================================================================================================
         % ======================= ZONE 3: Analysis ======================
         %For MEP data use non-rectified data if needed
-        if ~isempty(app.Processed_Conditions_DataAll{3}) && AnalysisType=="MEP" %if the third cell isn't empty then the non-rectified data was saved and if MEP is done, use the non-rectified data
+        if ~isempty(app.Processed_Conditions_DataAll{3}) %if the third cell isn't empty then the non-rectified data was saved and if MEP is done, use the non-rectified data
             if app.AverageCheckBox.Value == 1
                 TrialDataNR=app.Processed_Conditions_DataAll{3}(1,:);
             else
@@ -117,7 +117,7 @@ for i=1:length(SelectedTrialsData) %for each trial
         %SP = percent decrease and normalized area under the curve
         %If the user would like to use their own method for calculating these metrics,
         %the variables app.MEP_Amp, app.MEP_Area, app.SP_PercDecrease, app.SP_Area need to be filled in in this function
-        PluginAutoCalcMEPandSP(i,app,PreStimData,AnalyzeData,AnalysisType);
+        PluginAutoCalcMEPandSP(i,app,PreStimData,AnalyzeData,"MEP"); %type in "MEP" or "SP"
 
         %Analyses=====
         %The number of turns (NT) is counted as the significant peaks occurring during the MEP Dur
@@ -163,7 +163,7 @@ for i=1:length(SelectedTrialsData) %for each trial
         % ==============================================================================================================================
         % ==============================================================================================================================
 
-    else %don't analyze becuase an onset/offset wasn't found
+    else %don't analyze because an onset/offset wasn't found
         % ==============================================================================================================================
         % ======================= ZONE 4: Missed Analysis Fill In ======================
         % Stash this trial's data for the optional diagnostic plot
@@ -171,7 +171,6 @@ for i=1:length(SelectedTrialsData) %for each trial
             NTData=[0 0];
             NPData=[0 0; 0 0];
             plotData=struct('AnalyzeData',[],'NT',NTData,'NP',NPData');
-
 
         end
         CustomOutputs.NT(i,:)=nan;
