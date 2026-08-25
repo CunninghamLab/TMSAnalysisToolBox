@@ -30,3 +30,16 @@ v2_1_2 - 8/7/26
 v2_1_3 - 8/17/26
 -fixed empty Plugins folder error
 -fixed Override group names button
+
+v2_1_4
+-Added autofill of group names for import event button
+-Changed override group name button functionality
+-added Notes text area
+	*If the user make a new row in the text area (hits enter while making notes) in the csv file the newline would be marked as a ‘/’.
+-Analysis plugins function name no longer requires the "_MEP" or "_SP" at the end
+-added checkbox for built-in onset/offset detection methods when used with analysis plugins
+-fixed a bug that caused the Analyze Average column in the results CSV to always be 0
+-changed how the analysis plugins function works
+
+
+

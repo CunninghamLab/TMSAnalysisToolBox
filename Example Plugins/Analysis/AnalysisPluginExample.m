@@ -1,3 +1,5 @@
+%8/25/2026: If we use this version I need to fix the empty MEP_Amp and Area columns that occurs when using the built-in MEP and SP analyses
+
 %{
 AnalysisPluginExample - simple example script to show users how to make analysis plugins
 
@@ -171,6 +173,7 @@ for i=1:length(SelectedTrialsData) %for each trial
             NTData=[0 0];
             NPData=[0 0; 0 0];
             plotData=struct('AnalyzeData',[],'NT',NTData,'NP',NPData');
+
 
         end
         CustomOutputs.NT(i,:)=nan;
