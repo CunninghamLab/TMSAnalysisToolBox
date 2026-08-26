@@ -7,31 +7,31 @@ AnalysisPluginExample - simple example script to show users how to make analysis
 HOW TO USE THIS TEMPLATE
   Edit only the three ZONE blocks below:
     ZONE 1  set numVar, your parameter labels, and optional default values
-    ZONE 2  unpack your parameters from UserVar
-    ZONE 3  write your Analysis method and fill the outputs
-    ZONE 4  fill in the app.CustomOutputs variable to trials not analyzed
+    ZONE 2  initialize your custom outputs with NaNs
+    ZONE 3  unpack your parameters from UserVar
+    ZONE 4  write your Analysis method and fill the outputs
   Everything else is handled for you by createPluginFigure.
   Optional: add a diagnostic plot to see how inputs change detection -
   see ZScoreOnsetOffsetDetect.m for a worked example.
 
 INPUTS (provided by the app - do not change)
+  whichTrial         - which trial the loop in the main app is on, which trial the current data belongs to
   app                - handle to the main app (e.g. app.Time, in seconds)
   existFig           - whether the parameter pop-up is already open
   PluginsFolderName  - folder for this plugin's settings file
+  UserVar            - values in the pop-up figure
+  NumTrials          - total number of trials be analyzed
   AnalyzeSampleRate  - sample rate after processing, Hz
   PreStimData        - baseline window, numSamples x numTrials
-  SelectedTrials     - trial signals in VOLTS, numTrials x 1 cell
-  MissingAnalyze     - number of trials that are not analyzed due to the onset or offset not being found
+  TrialData          - trial data, 1xlength of trial double
   Start              - the starting index of of the trial (index in app.Time that equals the Onset time)
   End                - the ending index of of the trial (index in app.Time that equals the Onset time)
-    Note: If the user uses the override button, the Start and End values will be calculated in the main app. 
-          The user does not need to define them here. 
-          It would be best to add an IF statement that checks if override was used or not using the variable app.OverrideUsed
 
 OUTPUTS (you must return these shapes and units)
-  MissingAnalyze     - number of trials that are not analyzed due to the onset or offset not being found, double scalar
-  app.CustomOutputs      - add the custom outputs to this scruct (e.g. app.CustomOutputs.Latency), double column vector, each row is the result from a trial
-  CustomAnalysisOpts - the pop-up object, returned untouched
+  UserVar - values in the pop-up figure, DO NOT EDIT this variable, it will be carried over between trials
+
+The variable that holds the outputs of the function should be stored in app.CustomOutputs struct. Each custom metric should be a fieldname in the struct.
+EX: app.CustomOutputs.NT and app.CustomOutputs.NP hold the number of turns and number of phases respectively. 
 %}
 
 %{
@@ -39,7 +39,7 @@ Other MEP metrics
 Lat is the time interval between the pulse delivery time and the MEP onset 
 Thickness is the ratio of the area under curve (AUC) to Amp
 The number of turns (NT) is counted as the significant peaks occurring during the MEP Dur
-The number of phased (NP) is counted by the zero-crossing points between the MEP onset and endpoint
+The number of phases (NP) is counted by the zero-crossing points between the MEP onset and endpoint
 Source: https://www.frontiersin.org/journals/neuroscience/articles/10.3389/fnins.2024.1415257/full#sec3 (MEPFeatX paper)
 %}
 

@@ -1,4 +1,4 @@
-%8/25/2026: If we use this version I need to fix the empty MEP_Amp and Area columns that occurs when using the built-in MEP and SP analyses
+%Note: this function does not work with version 2.1.4
 
 %{
 AnalysisPluginExample - simple example script to show users how to make analysis plugins
@@ -7,8 +7,9 @@ HOW TO USE THIS TEMPLATE
   Edit only the three ZONE blocks below:
     ZONE 1  set numVar, your parameter labels, and optional default values
     ZONE 2  unpack your parameters from UserVar
-    ZONE 3  write your Analysis method and fill the outputs
-    ZONE 4  fill in the app.CustomOutputs variable to trials not analyzed
+    ZONE 3  initialize app.CustomOutputs with NaNs
+    ZONE 4  write your Analysis method and fill the outputs
+    ZONE 5  fill in else statement <== this will change
   Everything else is handled for you by createPluginFigure.
   Optional: add a diagnostic plot to see how inputs change detection -
   see ZScoreOnsetOffsetDetect.m for a worked example.
@@ -68,6 +69,17 @@ PlotTrial = round(UserVar{2,2}); %plot
 
 % =======================================================================
 
+% ======================= ZONE 3: initialize custom outputs ===============
+NumTrials=length(SelectedTrialsData(:,1));
+%Initialize custom outputs
+app.CustomOutputs.MEPAmp=nan(NumTrials,1);
+app.CustomOutputs.MEPArea=nan(NumTrials,1);
+app.CustomOutputs.NT=nan(NumTrials,1);
+app.CustomOutputs.NP=nan(NumTrials,1);
+app.CustomOutputs.Latency=nan(NumTrials,1);
+app.CustomOutputs.Thickness=nan(NumTrials,1);
+% =========================================================================
+
 % ======================== vv DO NOT EDIT vv ==============================
 Analyze=1; %Boolean, whether or not to analyze the trial, if override is used, this is always 1, if override isn't used this is handled in the if statement
 
@@ -99,7 +111,7 @@ for i=1:length(SelectedTrialsData) %for each trial
         % ======================== ^^ DO NOT EDIT ^^ ==============================
 
         % ==============================================================================================================================
-        % ======================= ZONE 3: Analysis ======================
+        % ======================= ZONE 4: Analysis ======================
         %For MEP data use non-rectified data if needed
         if ~isempty(app.Processed_Conditions_DataAll{3}) %if the third cell isn't empty then the non-rectified data was saved and if MEP is done, use the non-rectified data
             if app.AverageCheckBox.Value == 1
@@ -117,9 +129,11 @@ for i=1:length(SelectedTrialsData) %for each trial
         %Auto calculate MEP or SP default metrics
         %MEP = amplitude and area under the curve
         %SP = percent decrease and normalized area under the curve
-        %If the user would like to use their own method for calculating these metrics,
-        %the variables app.MEP_Amp, app.MEP_Area, app.SP_PercDecrease, app.SP_Area need to be filled in in this function
-        PluginAutoCalcMEPandSP(i,app,PreStimData,AnalyzeData,"MEP"); %type in "MEP" or "SP"
+        %[MEPAmpValue, MEPAreaValue,SPPercDecreaseValue,SPAreaValue]=PluginAutoCalcMEPandSP(whichTrial,app,PreStimData,TrialData,"MEP"); %type in "MEP" or "SP"
+        %Note that these results are in volts
+        [MEPAmpValue, MEPAreaValue,~,~]=PluginAutoCalcMEPandSP(i,app,PreStimData,AnalyzeData,"MEP"); %type in "MEP" or "SP"
+        app.CustomOutputs.MEPAmp(i,1)=MEPAmpValue*1000; %convert to mV
+        app.CustomOutputs.MEPArea(i,1)=MEPAreaValue*1000; %convert to mV
 
         %Analyses=====
         %The number of turns (NT) is counted as the significant peaks occurring during the MEP Dur
@@ -167,19 +181,13 @@ for i=1:length(SelectedTrialsData) %for each trial
 
     else %don't analyze because an onset/offset wasn't found
         % ==============================================================================================================================
-        % ======================= ZONE 4: Missed Analysis Fill In ======================
+        % ======================= ZONE 5: Missed Analysis Fill In ======================
         % Stash this trial's data for the optional diagnostic plot
         if doPlot && i == PlotTrial
             NTData=[0 0];
             NPData=[0 0; 0 0];
             plotData=struct('AnalyzeData',[],'NT',NTData,'NP',NPData');
-
-
         end
-        CustomOutputs.NT(i,:)=nan;
-        CustomOutputs.NP(i,:)=nan;
-        CustomOutputs.Latency(i,:)=nan;
-        CustomOutputs.Thickness(i,:)=nan;
         % ==============================================================================================================================
         % ==============================================================================================================================
 
