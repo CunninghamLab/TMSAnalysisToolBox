@@ -39,7 +39,10 @@ v2_1_4
 -Analysis plugins function name no longer requires the "_MEP" or "_SP" at the end
 -added checkbox for built-in onset/offset detection methods when used with analysis plugins
 -fixed a bug that caused the Analyze Average column in the results CSV to always be 0
-
+-moved user's Plugins folder to Fcns folder, settings are still saved to the userpath
+-added a small save button next to analyze arrows for convenience, this button does the exact same function as save (.csv) button
+-added a "Manually Mark No Onset" button: this allows the user to manually mark if a trial has no onset (so there will be no output metrics)
+	This button is meant to be used for trial by trial analysis
 
 
 

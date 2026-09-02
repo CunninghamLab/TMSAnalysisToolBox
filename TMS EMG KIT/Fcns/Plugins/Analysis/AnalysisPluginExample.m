@@ -5,7 +5,8 @@ HOW TO USE THIS TEMPLATE
   Edit only the three ZONE blocks below:
     ZONE 1  set numVar, your parameter labels, and optional default values
     ZONE 2  unpack your parameters from UserVar
-    ZONE 3  write your Analysis method and fill the outputs
+    ZONE 3  initialize custom outputs variable
+    ZONE 4  write your Analysis method and fill the outputs
   Everything else is handled for you by createPluginFigure.
   Optional: add a diagnostic plot to see how inputs change detection
 
@@ -19,13 +20,10 @@ INPUTS (provided by the app - do not change)
   MissingAnalyze     - number of trials that are not analyzed due to the onset or offset not being found
   Start              - the starting index of of the trial (index in app.Time that equals the Onset time)
   End                - the ending index of of the trial (index in app.Time that equals the Onset time)
-    Note: If the user uses the override button, the Start and End values will be calculated in the main app. 
-          The user does not need to define them here. 
-          It would be best to add an IF statement that checks if override was used or not using the variable app.OverrideUsed
 
 OUTPUTS (you must return these shapes and units)
   MissingAnalyze     - number of trials that are not analyzed due to the onset or offset not being found, double scalar
-  CustomOutputs      - add the custom outputs to this scruct (e.g. CustomOutputs.Latency), double column vector, each row is the result from a trial
+  CustomOutputs      - add the custom outputs to this scruct (e.g. CustomOutputs.Latency), column vector, each row is the result from a trial
   CustomAnalysisOpts - the pop-up object, returned untouched
 %}
 
@@ -57,15 +55,15 @@ assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of lab
 % -----------------------------------------------------------------------
 
 % ======================= ZONE 2: unpack parameters =====================
-% UserVar is (numVar+1) x 2; column 2 holds the values.
-% Index 1 is ALWAYS the auto-added Start Time. YOUR parameters start at 2.
+% UserVar is (numVar) x 2; column 2 holds the values.
 PulseTime = UserVar{1,2}; %in seconds
 PlotTrial = round(UserVar{2,2}); %plot
 
 % =======================================================================
 nTrials=length(SelectedTrialsData(:,1));
+
 % ======================= ZONE 3: Initialize custom outputs =============
-%Initialize custom outputs
+%Initialize custom outputs with nans
 app.CustomOutputs.NT=nan(nTrials,1);
 app.CustomOutputs.NP=nan(nTrials,1);
 app.CustomOutputs.Latency=nan(nTrials,1);
@@ -74,13 +72,13 @@ app.CustomOutputs.Thickness=nan(nTrials,1);
 
 % ======================== vv DO NOT EDIT vv ==============================
 for i=1:length(SelectedTrialsData) %for each trial
-    [Start,End,MissingAnalyze,Analyze]=checkOverride(i,app,MissingAnalyze,Start,End);
+    [Start,End,MissingAnalyze,Analyze]=checkOverride(i,app,MissingAnalyze,Start,End); %check if override is used or if the trial doesn't have an onset/offset time
 
     if Analyze == 1
 % ======================== ^^ DO NOT EDIT ^^ ==============================
 
         % ==============================================================================================================================
-        % ======================= ZONE 3: Analysis ======================
+        % ======================= ZONE 4: Analysis ======================
         %For MEP data use non-rectified data if needed
         if ~isempty(app.Processed_Conditions_DataAll{3}) %if the third cell isn't empty then the non-rectified data was saved and if MEP is done, use the non-rectified data
             if app.AverageCheckBox.Value == 1
@@ -102,8 +100,9 @@ for i=1:length(SelectedTrialsData) %for each trial
 
         %If the user would like to use their own method for calculating these metrics,
         %the variables app.MEP_Amp and app.MEP_Area or app.SP_PercDecrease and app.SP_Area need to be filled in within this function
+        %and the above PluginAutoCalcMEPandSP() function should be removed
 
-        %Analyses=====
+        %Other Analyses
         %The number of turns (NT) is counted as the significant peaks occurring during the MEP Dur
         [Pks,Locs]=findpeaks(AnalyzeData);
         [PksN,LocsN]=findpeaks(-AnalyzeData);
