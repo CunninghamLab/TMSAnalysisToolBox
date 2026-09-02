@@ -39,7 +39,7 @@ v2_1_4
 -Analysis plugins function name no longer requires the "_MEP" or "_SP" at the end
 -added checkbox for built-in onset/offset detection methods when used with analysis plugins
 -fixed a bug that caused the Analyze Average column in the results CSV to always be 0
--changed how the analysis plugins function works
+
 
 
 

@@ -1,5 +1,3 @@
-%Note: this function does not work with version 2.1.4
-
 %{
 AnalysisPluginExample - simple example script to show users how to make analysis plugins
 
@@ -7,12 +5,9 @@ HOW TO USE THIS TEMPLATE
   Edit only the three ZONE blocks below:
     ZONE 1  set numVar, your parameter labels, and optional default values
     ZONE 2  unpack your parameters from UserVar
-    ZONE 3  initialize app.CustomOutputs with NaNs
-    ZONE 4  write your Analysis method and fill the outputs
-    ZONE 5  fill in else statement <== this will change
+    ZONE 3  write your Analysis method and fill the outputs
   Everything else is handled for you by createPluginFigure.
-  Optional: add a diagnostic plot to see how inputs change detection -
-  see ZScoreOnsetOffsetDetect.m for a worked example.
+  Optional: add a diagnostic plot to see how inputs change detection
 
 INPUTS (provided by the app - do not change)
   app                - handle to the main app (e.g. app.Time, in seconds)
@@ -20,7 +15,7 @@ INPUTS (provided by the app - do not change)
   PluginsFolderName  - folder for this plugin's settings file
   AnalyzeSampleRate  - sample rate after processing, Hz
   PreStimData        - baseline window, numSamples x numTrials
-  SelectedTrials     - trial signals in VOLTS, numTrials x 1 cell
+  SelectedTrialsData - trial signals in VOLTS, numTrials x 1 cell
   MissingAnalyze     - number of trials that are not analyzed due to the onset or offset not being found
   Start              - the starting index of of the trial (index in app.Time that equals the Onset time)
   End                - the ending index of of the trial (index in app.Time that equals the Onset time)
@@ -68,50 +63,24 @@ PulseTime = UserVar{1,2}; %in seconds
 PlotTrial = round(UserVar{2,2}); %plot
 
 % =======================================================================
-
-% ======================= ZONE 3: initialize custom outputs ===============
-NumTrials=length(SelectedTrialsData(:,1));
+nTrials=length(SelectedTrialsData(:,1));
+% ======================= ZONE 3: Initialize custom outputs =============
 %Initialize custom outputs
-app.CustomOutputs.MEPAmp=nan(NumTrials,1);
-app.CustomOutputs.MEPArea=nan(NumTrials,1);
-app.CustomOutputs.NT=nan(NumTrials,1);
-app.CustomOutputs.NP=nan(NumTrials,1);
-app.CustomOutputs.Latency=nan(NumTrials,1);
-app.CustomOutputs.Thickness=nan(NumTrials,1);
-% =========================================================================
+app.CustomOutputs.NT=nan(nTrials,1);
+app.CustomOutputs.NP=nan(nTrials,1);
+app.CustomOutputs.Latency=nan(nTrials,1);
+app.CustomOutputs.Thickness=nan(nTrials,1);
+% =======================================================================
 
 % ======================== vv DO NOT EDIT vv ==============================
-Analyze=1; %Boolean, whether or not to analyze the trial, if override is used, this is always 1, if override isn't used this is handled in the if statement
-
-% Diagnostic-plot setup: only active when PlotTrial points at a real trial.
-nTrials = length(SelectedTrialsData(:,1));
-doPlot   = PlotTrial >= 1 && PlotTrial <= nTrials;
-plotData = [];
-
 for i=1:length(SelectedTrialsData) %for each trial
-    if app.OverrideUsed == 0 %Override is not used
-        %Determine the index for the onset and offset
-        OnsetTime=app.AllOnOffsetTime(i,1);
-        OffsetTime=app.AllOnOffsetTime(i,2);
-        Tol=eps("double");
-        Start=find(abs(app.Time - OnsetTime) < Tol);
-        End=find(abs(app.Time - OffsetTime) < Tol);
-        %if either are not found, skip this trial
-        if isempty(Start) || isempty(End)
-            MissingAnalyze=MissingAnalyze+1; %add to the Missing Analyze counter, MissingAnalyze is initialized at 0 in the main app
-            Analyze=0; %don't analyze this trial, fill with nans
-        else
-            Analyze=1; %analyze this trial
-        end
-    else
+    [Start,End,MissingAnalyze,Analyze]=checkOverride(i,app,MissingAnalyze,Start,End);
 
-
-    end
     if Analyze == 1
-        % ======================== ^^ DO NOT EDIT ^^ ==============================
+% ======================== ^^ DO NOT EDIT ^^ ==============================
 
         % ==============================================================================================================================
-        % ======================= ZONE 4: Analysis ======================
+        % ======================= ZONE 3: Analysis ======================
         %For MEP data use non-rectified data if needed
         if ~isempty(app.Processed_Conditions_DataAll{3}) %if the third cell isn't empty then the non-rectified data was saved and if MEP is done, use the non-rectified data
             if app.AverageCheckBox.Value == 1
@@ -129,11 +98,10 @@ for i=1:length(SelectedTrialsData) %for each trial
         %Auto calculate MEP or SP default metrics
         %MEP = amplitude and area under the curve
         %SP = percent decrease and normalized area under the curve
-        %[MEPAmpValue, MEPAreaValue,SPPercDecreaseValue,SPAreaValue]=PluginAutoCalcMEPandSP(whichTrial,app,PreStimData,TrialData,"MEP"); %type in "MEP" or "SP"
-        %Note that these results are in volts
-        [MEPAmpValue, MEPAreaValue,~,~]=PluginAutoCalcMEPandSP(i,app,PreStimData,AnalyzeData,"MEP"); %type in "MEP" or "SP"
-        app.CustomOutputs.MEPAmp(i,1)=MEPAmpValue*1000; %convert to mV
-        app.CustomOutputs.MEPArea(i,1)=MEPAreaValue*1000; %convert to mV
+        PluginAutoCalcMEPandSP(i,app,PreStimData,AnalyzeData,"MEP"); %type in "MEP" or "SP"
+
+        %If the user would like to use their own method for calculating these metrics,
+        %the variables app.MEP_Amp and app.MEP_Area or app.SP_PercDecrease and app.SP_Area need to be filled in within this function
 
         %Analyses=====
         %The number of turns (NT) is counted as the significant peaks occurring during the MEP Dur
@@ -167,47 +135,23 @@ for i=1:length(SelectedTrialsData) %for each trial
         %Thickness is the ratio of the area under curve (AUC) to Amp
         CustomOutputs.Thickness(i,1)=app.MEP_Area(i,1)./app.MEP_Amp(i,1);
 
-        % Stash this trial's data for the optional diagnostic plot.
-        if doPlot && i == PlotTrial
+        % plot the optional plot if desired
+        if i == PlotTrial
             NTData=[Locs' Pks'];
             NPData=[GreaterThanzero(NegCross) LessThanzero(PosCross); GreaterThanzero(NegCross)+1 LessThanzero(PosCross)+1];
             plotData=struct('AnalyzeData',AnalyzeData,'NT',NTData,'NP',NPData');
-
+            plotTrialFunction(plotData); %user's plotting function goes here
 
         end
-
-        % ==============================================================================================================================
-        % ==============================================================================================================================
-
-    else %don't analyze because an onset/offset wasn't found
-        % ==============================================================================================================================
-        % ======================= ZONE 5: Missed Analysis Fill In ======================
-        % Stash this trial's data for the optional diagnostic plot
-        if doPlot && i == PlotTrial
-            NTData=[0 0];
-            NPData=[0 0; 0 0];
-            plotData=struct('AnalyzeData',[],'NT',NTData,'NP',NPData');
-        end
-        % ==============================================================================================================================
-        % ==============================================================================================================================
 
     end %end if Analyze, don't edit the overall structure of this if statement
 
 end %end for each trial
 
-% Optional diagnostic plot: shows the envelope, threshold, and detected
-% onset/offset for one trial, so you can see how the inputs change detection.
-if doPlot
-    plotTrialFunction(plotData);
-elseif PlotTrial >= 1
-    warning('Plot trial %d exceeds the number of trials (%d).', PlotTrial, nTrials);
-end
-
 % =======================================================================
 
 end %end function
 
-% ===================== DO NOT EDIT BELOW =====================
 %function for plotting trial data
 function plotTrialFunction(plotData)
 AnalyzeData=plotData.AnalyzeData;
