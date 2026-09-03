@@ -1,0 +1,2 @@
+These are example plugins that can also be found in the Fcns/Plugins folder within the TMS EMG Kit folder.
+The functions in the Fcns/Plugins folder are what will be used by the app, not the ones in this folder. These files are for reference.
