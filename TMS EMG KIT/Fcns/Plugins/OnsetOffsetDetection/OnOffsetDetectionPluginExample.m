@@ -1,5 +1,5 @@
 %{
-OnOffsetDetectionPluginTemplate - starting point for a custom onset/offset detection method.
+OnOffsetDetectionPluginExample - simple example script to show users how to make onset/offset detection plugins
 
 HOW TO USE THIS TEMPLATE
   Edit only the three ZONE blocks below:
@@ -26,12 +26,12 @@ OUTPUTS (you must return these shapes and units)
   CustomOnOffDetectOpts - the pop-up object, returned untouched
   Return [] for any output your method does not compute.
 %}
-function [AllOnOffsetTime, OnsetLimit, OffsetLimit, meanPreStimData, CustomOnOffDetectOpts]=OnOffsetDetectionPluginTemplate(app, existFig, PluginsFolderName, AnalyzeSampleRate, PreStimData, SelectedTrialsData)
+function [AllOnOffsetTime, OnsetLimit, OffsetLimit, meanPreStimData, CustomOnOffDetectOpts]=OnOffsetDetectionPluginExample(app, existFig, PluginsFolderName, AnalyzeSampleRate, PreStimData, SelectedTrialsData)
 
 % ======================= ZONE 1: your parameters =======================
-numVar = 3;                                   % how many parameters you need
-ListofVariableLabels = {'Variable 1 Label', 'Variable 2 Label', 'Variable 3 Label'};
-DefaultValues        = [0, 0, 0];             % first-run defaults, same order/units as labels ([] for none)
+numVar = 2;                                   % how many parameters you need
+ListofVariableLabels = {'Onset Threshold (mV)','Offset Threshold (mV)'};
+DefaultValues        = [0.2, 0.3];             % first-run defaults, same order/units as labels ([] for none)
 % =======================================================================
 assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of labels.');
 DefaultValues=checkDefaultLength(DefaultValues,numVar); %checks length of DefaultValues variable
@@ -46,11 +46,13 @@ DefaultValues=checkDefaultLength(DefaultValues,numVar); %checks length of Defaul
 
 % ======================= ZONE 2: unpack parameters =====================
 % UserVar is (numVar+1) x 2; column 2 holds the values.
+
 % Index 1 is ALWAYS the auto-added Start Time. YOUR parameters start at 2.
 StartTime = UserVar{1,2}*0.001;   % ms -> s, to match app.Time
-Var1      = UserVar{2,2};
-Var2      = UserVar{3,2};
-Var3      = UserVar{4,2};
+
+OnsetThreshold = UserVar{2,2}*0.001; %convert to mV, data is in volts, so convert to mV
+OffsetThreshold = UserVar{3,2}*0.001; %convert to mV, data is in volts, so convert to mV
+
 % =======================================================================
 
 % ======================= ZONE 3: detection method ======================
@@ -63,14 +65,67 @@ nTrials = numel(SelectedTrialsData);
 AllOnOffsetTime = nan(nTrials, 2);
 OnsetLimit = nan(1,nTrials); OffsetLimit = nan(1,nTrials); meanPreStimData = [];   % set these if your method uses them
 
-% --- PLACEHOLDER so the plugin runs as-is. Replace with your method. ---
-% This dummy just marks each trial active from Start Time to the trial end.
-for i = 1:nTrials
-    % your detection for trial i goes here, using SelectedTrialsData{i,1}
-    AllOnOffsetTime(i,1) = StartTime;        % onset  (seconds) - placeholder
-    AllOnOffsetTime(i,2) = app.Time(end);    % offset (seconds) - placeholder
-end
-% -----------------------------------------------------------------------
+%--------------------------------------------------------------------------
+%Determine Start time, round to nearest time value
+Tol=eps("double");
+DiffTimeStart=abs(app.Time-(StartTime));
+minDiffTimeStart=find(DiffTimeStart == min(DiffTimeStart));
+StartTime=app.Time(minDiffTimeStart); %seconds
+CustomOnOffDetectOpts.Children.Children(2).Value=StartTime*1000; %display new start time in ms
+%CustomOnOffDetectOpts.Children.Children = the edit fields for the pop-up figure
+
+SelectedTrialsData=cellfun(@abs,SelectedTrialsData,'UniformOutput',false);
+TrialTime=app.Time;
+for i=1:length(SelectedTrialsData) %for each trial
+    TrialData=SelectedTrialsData{i,1};
+    StartIndx=find(abs(app.Time - StartTime) < Tol);
+    TrialDataOn=TrialData(StartIndx:end);
+    TrialTimeOn=TrialTime(StartIndx:end);
+
+    %Find Onset
+    for p=2:length(TrialDataOn)
+        CurrPoint=TrialDataOn(p);
+        PrevPoint=TrialDataOn(p-1);
+
+        if CurrPoint > OnsetThreshold && PrevPoint < OnsetThreshold %if the data crosses the threshold, mark as offset
+            OnsetTime=TrialTimeOn(p);
+            AllOnOffsetTime(i,1)=OnsetTime;
+            break;
+        end
+
+        if p==length(TrialDataOn) %reach the end without finding an onset
+            AllOnOffsetTime(i,1)=nan;
+        end
+    end
+
+
+    %Find Offset
+    if isnan(AllOnOffsetTime(i,1))%if no onset was found, don't look for an offset
+        AllOnOffsetTime(i,2)=nan;
+    else
+        TrialDataOff=TrialData(TrialTime >= OnsetTime);
+        TrialTimeOff=TrialTime(TrialTime >= OnsetTime);
+        for p=2:length(TrialDataOff)
+            CurrPoint=TrialDataOff(p);
+            PrevPoint=TrialDataOff(p-1);
+
+            if CurrPoint < OffsetThreshold && PrevPoint > OffsetThreshold %if the data crosses the threshold, mark as offset
+                AllOnOffsetTime(i,2)=TrialTimeOff(p);
+                break;
+            end
+
+            if p==length(TrialDataOff) %reach the end without finding an onset
+                AllOnOffsetTime(i,2)=nan;
+            end
+        end
+
+    end
+
+
+OnsetLimit(i)=OnsetThreshold; 
+OffsetLimit(i)=OffsetThreshold;
+
+end %end for each trial
 
 % OPTIONAL: echo the snapped Start Time back into the pop-up field.
 % Finds the field by grid row (row 1), so it never depends on child order.

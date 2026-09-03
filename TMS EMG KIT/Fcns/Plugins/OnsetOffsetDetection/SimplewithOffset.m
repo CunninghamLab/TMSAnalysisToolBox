@@ -1,5 +1,4 @@
 %{
-OnOffsetDetectionPluginExample - simple example script to show users how to make onset/offset detection plugins
 
 HOW TO USE THIS TEMPLATE
   Edit only the three ZONE blocks below:
@@ -26,12 +25,12 @@ OUTPUTS (you must return these shapes and units)
   CustomOnOffDetectOpts - the pop-up object, returned untouched
   Return [] for any output your method does not compute.
 %}
-function [AllOnOffsetTime, OnsetLimit, OffsetLimit, meanPreStimData, CustomOnOffDetectOpts]=OnOffsetDetectionPluginExample(app, existFig, PluginsFolderName, AnalyzeSampleRate, PreStimData, SelectedTrialsData)
+function [AllOnOffsetTime, OnsetLimit, OffsetLimit, meanPreStimData, CustomOnOffDetectOpts]=SimplewithOffset(app, existFig, PluginsFolderName, AnalyzeSampleRate, PreStimData, SelectedTrialsData)
 
 % ======================= ZONE 1: your parameters =======================
-numVar = 2;                                   % how many parameters you need
-ListofVariableLabels = {'Onset Threshold (mV)','Offset Threshold (mV)'};
-DefaultValues        = [0.2, 0.3];             % first-run defaults, same order/units as labels ([] for none)
+numVar = 3;                                   % how many parameters you need
+ListofVariableLabels = {'Onset Threshold (mV)','Offset Threshold (mV)','Temporal Offset (s)'};
+DefaultValues        = [0.2, 0.3, 0];             % first-run defaults, same order/units as labels ([] for none)
 % =======================================================================
 assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of labels.');
 
@@ -49,6 +48,7 @@ assert(numel(ListofVariableLabels)==numVar, 'numVar must equal the number of lab
 StartTime = UserVar{1,2}*0.001;   % ms -> s, to match app.Time
 OnsetThreshold = UserVar{2,2}*0.001; %convert to mV, data is in volts, so convert to mV
 OffsetThreshold = UserVar{3,2}*0.001; %convert to mV, data is in volts, so convert to mV
+TOffset = UserVar{4,2}; %keep in seconds
 
 % =======================================================================
 
@@ -123,6 +123,8 @@ OnsetLimit(i)=OnsetThreshold;
 OffsetLimit(i)=OffsetThreshold;
 
 end %end for each trial
+
+AllOnOffsetTime(:,2) = AllOnOffsetTime(:,2) + TOffset; %add temporal offset to offset times
 
 % OPTIONAL: echo the snapped Start Time back into the pop-up field.
 % Finds the field by grid row (row 1), so it never depends on child order.
