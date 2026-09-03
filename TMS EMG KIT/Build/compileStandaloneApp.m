@@ -1,20 +1,12 @@
 %% compileStandaloneApp.m
-% Builds TMSAnalysisToolBox as a standalone desktop app (no MATLAB
-% license required to run it) and packages an installer.
-%
+
 % Cross-platform: run this script ON Windows to build the Windows app,
 % and ON a Mac to build the Mac app. MATLAB Compiler cannot cross-
 % compile -- there is no way to produce a Mac build from Windows.
-%
-% This script lives in <project root>\Build\, deliberately OUTSIDE the
-% Fcns folder so it is not bundled into the compiled app. It resolves
-% every path from its OWN location, so you can F5 it from the editor or
-% run it with any current folder -- you do not have to cd anywhere first.
-%
 % Requires: MATLAB Compiler (R2022b+ for ExecutableSplashScreen).
 
-% This file sits one level down (in Build), so go up one to reach the
-% project root that holds the .mlapp, Fcns and Logo.
+% scriptFolder is the Build folder (build outputs are written into it).
+% projectRoot is one level up: it holds the .mlapp, Fcns and Logo.
 scriptFolder = fileparts(mfilename('fullpath'));
 projectRoot  = fileparts(scriptFolder);
 
@@ -22,8 +14,6 @@ appFile   = fullfile(projectRoot, 'TMSAnalysisToolBox_v2_1_4.mlapp');
 fcnsDir   = fullfile(projectRoot, 'Fcns');
 logoDir   = fullfile(projectRoot, 'Logo');
 
-% PNG is accepted for both the icon and the splash screen, on both
-% platforms. Keep these as .png -- do NOT convert to .ico/.icns.
 iconFile   = fullfile(logoDir, 'Group 13.png');   % app / taskbar / dock icon
 splashFile = fullfile(logoDir, 'Group 12.png');   % Windows-only startup splash
 
@@ -39,7 +29,7 @@ if ispc
     % standaloneWindowsApplication (not standaloneApplication) so the
     % .exe launches straight into the GUI with no console window.
     % ExecutableSplashScreen is ONLY honored on this path.
-    outputDir = fullfile(projectRoot, 'WindowsCompiled');
+    outputDir = fullfile(scriptFolder, 'WindowsCompiled');   % Build\WindowsCompiled
 
     opts = compiler.build.StandaloneApplicationOptions(appFile, ...
         'ExecutableName',         'Windows_TMSEMGKit_v2_1_4', ...
@@ -56,7 +46,7 @@ else
     % No standaloneWindowsApplication here, and no splash screen: the
     % splash is a Windows-only feature of MATLAB Compiler. The icon
     % still works and becomes the .app bundle icon.
-    outputDir = fullfile(projectRoot, 'MacCompiled');
+    outputDir = fullfile(scriptFolder, 'MacCompiled');       % Build\MacCompiled
 
     opts = compiler.build.StandaloneApplicationOptions(appFile, ...
         'ExecutableName',  'MAC_TMSEMGKit_v2_1_4', ...
