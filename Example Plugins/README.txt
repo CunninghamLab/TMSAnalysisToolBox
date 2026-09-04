@@ -1,4 +1,4 @@
-EXAMPLE PLUGINS
+#EXAMPLE PLUGINS
 ===============
 
 These files are REFERENCE ONLY. The app only loads plugins from:
@@ -26,7 +26,7 @@ wrong subfolder will not appear in the app.
     
 Each folder has a Template (start here) and simplified examples and various plugins in development based on manuscripts (will continue to update)
 
-**Future development will include a way to share plugins with the community**
+#Future development will include a way to share plugins with the community
 
 
 MAKING ONE
