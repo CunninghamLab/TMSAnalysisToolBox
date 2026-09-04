@@ -1,4 +1,4 @@
-EXAMPLE PLUGINS
+Example Plugins
 ===============
 
 These files are REFERENCE ONLY. The app only loads plugins from:
@@ -8,25 +8,23 @@ These files are REFERENCE ONLY. The app only loads plugins from:
 To use a plugin, put a copy in the subfolder for its type. A plugin in the
 wrong subfolder will not appear in the app.
 
-    Fcns/Plugins/Custom_File_Import
+*Fcns/Plugins/Custom_File_Import*
         Reads a data file format the app doesn't support natively and converts
         it to the app's "Block" form (channels, blocks, sample rate, comments/
         events).
-
-    Fcns/Plugins/Processing
+*Fcns/Plugins/Processing*
         Include your own signal processing algorithms e.g. filtering,
         rectification, smoothing, detrending, artifact handling. 
 
-    Fcns/Plugins/OnsetOffsetDetection
+*Fcns/Plugins/OnsetOffsetDetection*
         Develop your own onset offset detection algorithms.
   
-
-    Fcns/Plugins/Analysis
+*Fcns/Plugins/Analysis*
         Compute custom metrics from each trial within the determined onset and offset window
     
 Each folder has a Template (start here) and simplified examples and various plugins in development based on manuscripts (will continue to update)
 
-Future development will include a way to share plugins with the community
+## Future development will include a way to share plugins with the community
 
 MAKING ONE
 ----------
