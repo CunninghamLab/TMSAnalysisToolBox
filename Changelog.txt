@@ -31,7 +31,7 @@ v2_1_3 - 8/17/26
 -fixed empty Plugins folder error
 -fixed Override group names button
 
-v2_1_4
+v2_1_4 - 9/3/26
 -Added autofill of group names for import event button
 -Changed override group name button functionality
 -added Notes text area
@@ -43,6 +43,18 @@ v2_1_4
 -added a small save button next to analyze arrows for convenience, this button does the exact same function as save (.csv) button
 -added a "Manually Mark No Onset" button: this allows the user to manually mark if a trial has no onset (so there will be no output metrics)
 	This button is meant to be used for trial by trial analysis
+
+v2_1_5
+-added ability to load in condition files that have different sample rates, the app will downsample everything to the lowest sample rate 
+-added some checks for nans in the data
+
+
+
+
+
+
+
+
 
 
 

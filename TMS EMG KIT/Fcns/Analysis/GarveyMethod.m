@@ -11,8 +11,8 @@ switch MCDorSD
         % find limits using MCD
         PreStimData=abs(PreStimData); %rectify
         Difference=abs(PreStimData(1:end-1,:)-PreStimData(2:end,:));
-        MCD=mean(Difference);
-        meanPreStimData=mean(PreStimData);
+        MCD=mean(Difference,'omitnan');
+        meanPreStimData=mean(PreStimData,'omitnan');
         MCDConstant=app.MCDConstantEditField.Value;
 
         switch AnalyzeMethod
@@ -32,7 +32,7 @@ switch MCDorSD
 
     case 'SD'
         %Determine Limits
-        meanPreStimData=mean(abs(PreStimData)); %mean of rectified data
+        meanPreStimData=mean(abs(PreStimData),'omitnan'); %mean of rectified data
         PreStimSTDV=std(abs(PreStimData));
 
         switch AnalyzeMethod
@@ -65,6 +65,10 @@ for i=1:length(SelectedTrialsData(:,1)) %for each trial
     TrialDataNR=SelectedTrialsData{i,1};
     %TrialTime=SelectedTrialsData{i,2};
     TrialData=abs(TrialDataNR); %rectify
+    
+    %removing nans %!!!!!
+    TrialData(isnan(TrialData))=[];
+    TrialTime(isnan(TrialTime))=[];
 
     %find onset time
     StartIndx=find(abs(app.Time - StartTime) < Tol);
