@@ -47,6 +47,9 @@ v2_1_4 - 9/3/26
 v2_1_5
 -added ability to load in condition files that have different sample rates, the app will downsample everything to the lowest sample rate 
 -added some checks for nans in the data
+-override group name button has more checks for if there are not enough or too many group names in the csv files
+-Add custom outputs outcomes to space next to detection method panel for if one trial is analyzed
+-Brainsight files: loading in raw file, added a check for nulls
 
 
 
