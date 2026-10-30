@@ -110,6 +110,7 @@ for i=1:length(New.numTrialsperCondition(:,1)) %for each trial in each condition
     CEnd=CStart+New.numTrialsperCondition(i,1)-1;
     New.numTrialsperCondition(i,2)=CStart;
     New.numTrialsperCondition(i,3)=CEnd;
+    %New.numTrialsperCondition(i,4)=New.SampleRate;
     %New.AllData(CStart:CEnd,1:2)=New.ConditionsData{i,1};
     CStart=CEnd+1;
 end
